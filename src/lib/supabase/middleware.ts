@@ -1,9 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-
+ 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
-
+ 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -24,33 +24,38 @@ export async function updateSession(request: NextRequest) {
       },
     }
   );
-
+ 
   // IMPORTANTE: getUser() renova a sessão automaticamente
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
+ 
   const path = request.nextUrl.pathname;
-
-  // Rotas públicas (não exigem login)
+// Rotas públicas (não exigem login)
   const isPublicRoute =
     path.startsWith("/login") ||
+    path.startsWith("/auth") ||
     path.startsWith("/_next") ||
     path === "/favicon.ico";
-
-  // Não logado tentando acessar rota privada → vai pro login
+ 
+  // Não logado tentando acessar rota privada -> vai pro login
   if (!user && !isPublicRoute) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);
   }
-
-  // Logado tentando acessar raiz ou login → vai pro dashboard
-  if (user && (path === "/" || path.startsWith("/login"))) {
+ 
+  // Logado tentando acessar raiz ou login -> vai pro dashboard
+  // (exceto rotas /auth, como a tela de redefinir senha no recovery)
+  if (
+    user &&
+    (path === "/" || path.startsWith("/login")) &&
+    !path.startsWith("/auth")
+  ) {
     const url = request.nextUrl.clone();
     url.pathname = "/dashboard";
     return NextResponse.redirect(url);
   }
-
+ 
   return supabaseResponse;
 }
