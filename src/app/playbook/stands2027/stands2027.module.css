@@ -230,6 +230,9 @@
   color: var(--ink);
   margin-bottom: 8px;
 }
+.docUpload {
+  margin-top: 4px;
+}
 .docLink {
   width: 100%;
   margin-top: 8px;

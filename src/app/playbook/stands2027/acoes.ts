@@ -136,3 +136,61 @@ export async function salvarStandDocLink(
   revalidatePath("/playbook");
   return { status: "ok" };
 }
+
+// Define (upsert) o arquivo enviado de um documento de stand, por (stand_id, slot).
+// Grava storage_path + nome_arquivo (o binário fica no Storage; aqui só o caminho).
+// OBS: playbook_stand_docs NÃO tem coluna atualizado_por — não enviar.
+export async function salvarStandDocArquivo(
+  standId: string,
+  slot: StandDocSlot,
+  storagePath: string,
+  nomeArquivo: string
+): Promise<ResultadoAcao> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { status: "nao_autenticado" };
+
+  const { error } = await supabase.from("playbook_stand_docs").upsert(
+    {
+      stand_id: standId,
+      slot,
+      storage_path: storagePath,
+      nome_arquivo: nomeArquivo,
+    },
+    { onConflict: "stand_id,slot" }
+  );
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
+// Limpa o arquivo enviado de um documento de stand (storage_path + nome_arquivo),
+// preservando o eventual 'link'. Faz upsert para não apagar a linha (e o link).
+// OBS: playbook_stand_docs NÃO tem coluna atualizado_por — não enviar.
+export async function removerStandDocArquivo(
+  standId: string,
+  slot: StandDocSlot
+): Promise<ResultadoAcao> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { status: "nao_autenticado" };
+
+  const { error } = await supabase.from("playbook_stand_docs").upsert(
+    {
+      stand_id: standId,
+      slot,
+      storage_path: null,
+      nome_arquivo: null,
+    },
+    { onConflict: "stand_id,slot" }
+  );
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}

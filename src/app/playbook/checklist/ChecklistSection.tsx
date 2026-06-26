@@ -185,6 +185,7 @@ export default function ChecklistSection({
         {abaAtiva === "leads" ? (
           <LeadsTab
             eventoId={feiraSelecionada}
+            eventoNome={eventoAtual?.nome ?? ""}
             leads={dados.leads[feiraSelecionada]}
             estaLogado={estaLogado}
             podeEditar={podeEditar}

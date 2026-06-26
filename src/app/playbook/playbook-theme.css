@@ -48,6 +48,14 @@
 .playbook-root .pb-logo-text { font-family: var(--font-bricolage), sans-serif; font-weight: 600; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--ink-2); }
 .playbook-root .pb-logo-img { height: 26px; width: auto; display: block; }
 .playbook-root .pb-logo-sep { color: var(--line-2); font-size: 1.3rem; line-height: 1; }
+
+/* Anexos (UploadCampo) — botões de link/upload reutilizáveis */
+.playbook-root .pb-link-btn { font-family: var(--font-manrope), sans-serif; font-size: 0.8rem; color: var(--accent); background: var(--accent-soft); border: 1px solid transparent; border-radius: 6px; padding: 4px 10px; cursor: pointer; transition: background 0.15s, border-color 0.15s; }
+.playbook-root .pb-link-btn:hover { border-color: var(--accent); }
+.playbook-root .pb-link-btn:disabled { opacity: 0.5; cursor: progress; }
+.playbook-root .pb-link-danger { color: var(--crit); background: rgba(214, 43, 43, 0.08); }
+.playbook-root .pb-upload-label { font-family: var(--font-manrope), sans-serif; font-size: 0.8rem; color: var(--accent); background: var(--bg-pure); border: 1px dashed var(--line-2); border-radius: 6px; padding: 4px 10px; cursor: pointer; display: inline-flex; align-items: center; }
+.playbook-root .pb-upload-label:hover { border-color: var(--accent); }
 .playbook-root .pb-nav-links { display: flex; gap: 26px; align-items: center; list-style: none; }
 .playbook-root .pb-nav-links a { color: var(--ink-2); text-decoration: none; font-size: 0.92rem; font-weight: 500; transition: color 0.2s; }
 .playbook-root .pb-nav-links a:hover { color: var(--accent); }

@@ -9,8 +9,12 @@ import {
   editarStand,
   removerStand,
   salvarStandDocLink,
+  salvarStandDocArquivo,
+  removerStandDocArquivo,
   type ResultadoAcao,
 } from "./acoes";
+import UploadCampo from "../_shared/UploadCampo";
+import { BUCKET_PUBLICO } from "../_shared/storage";
 import styles from "./stands2027.module.css";
 
 const fmtBRL = (n: number) =>
@@ -234,15 +238,35 @@ export default function StandsSection({
           {STAND_DOC_SLOTS.map(({ slot, titulo }) => {
             const doc = e.docs.find((d) => d.slot === slot);
             const link = doc?.link ?? "";
+            const storagePath = doc?.storage_path ?? null;
+            const nomeArquivo = doc?.nome_arquivo ?? null;
+            const semDoc = !link && !storagePath;
             return (
               <div key={slot} className={styles.doc}>
                 <div className={styles.docTag}>{titulo}</div>
+
+                {/* Upload de arquivo (PDF/imagem) — alternativa ao link */}
+                <div className={styles.docUpload}>
+                  <UploadCampo
+                    bucket={BUCKET_PUBLICO}
+                    publico={true}
+                    pathPrefix={`stands/${e.id}/${slot}`}
+                    podeEditar={podeEditar}
+                    accept=".pdf,image/*"
+                    storagePath={storagePath}
+                    nomeArquivo={nomeArquivo}
+                    onSalvar={(sp, na) => salvarStandDocArquivo(e.id, slot, sp, na)}
+                    onRemover={() => removerStandDocArquivo(e.id, slot)}
+                  />
+                </div>
+
+                {/* Link (Drive, PDF externo…) — mantido como alternativa */}
                 {podeEditar ? (
                   <input
                     type="url"
                     className={styles.docLink}
                     defaultValue={link}
-                    placeholder="Cole o link (Drive, PDF…)"
+                    placeholder="Ou cole um link (Drive, PDF…)"
                     onBlur={(ev) => onSalvarDocLink(e, slot, ev.target.value)}
                   />
                 ) : null}
@@ -253,9 +277,9 @@ export default function StandsSection({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Abrir ↗
+                    Abrir link ↗
                   </a>
-                ) : !podeEditar ? (
+                ) : !podeEditar && semDoc ? (
                   <div className={styles.docVazio}>Sem documento</div>
                 ) : null}
               </div>

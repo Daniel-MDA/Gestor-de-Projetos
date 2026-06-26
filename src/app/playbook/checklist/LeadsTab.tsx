@@ -9,18 +9,24 @@ import {
   addLeadManual,
   editarLeadManual,
   removerLeadManual,
+  salvarLeadsPlanilhaAnexo,
+  removerLeadsPlanilhaAnexo,
   type ResultadoAcao,
 } from "./acoes";
+import UploadCampo from "../_shared/UploadCampo";
+import { BUCKET_LEADS } from "../_shared/storage";
 import styles from "./checklist.module.css";
 
 export default function LeadsTab({
   eventoId,
+  eventoNome,
   leads,
   estaLogado,
   podeEditar,
   onErro,
 }: {
   eventoId: string;
+  eventoNome: string;
   leads: Leads | undefined;
   estaLogado: boolean;
   podeEditar: boolean;
@@ -47,6 +53,8 @@ export default function LeadsTab({
   }
 
   const planilhaLink = leads?.planilha_link ?? "";
+  const planilhaPath = leads?.planilha_storage_path ?? null;
+  const planilhaNome = leads?.planilha_nome ?? null;
   const manualLink = leads?.manual_planilha_link ?? "";
   const manuais = [...(leads?.manuais ?? [])].sort((a, b) => a.ordem - b.ordem);
 
@@ -66,6 +74,41 @@ export default function LeadsTab({
     const atual = (lead[campo] ?? "") as string;
     if (valor === atual) return;
     executar(() => editarLeadManual(lead.id, campo, valor));
+  }
+
+  // Exporta os leads manuais da feira selecionada como CSV (gerado no cliente,
+  // baixado via Blob). Só-logado, pois são dados pessoais (PII / LGPD).
+  function onExportarCsv() {
+    if (manuais.length === 0) return;
+    const cab = [
+      "Nome",
+      "Empresa",
+      "Cargo",
+      "E-mail",
+      "Telefone",
+      "Origem",
+      "Observações",
+    ];
+    const esc = (v: string | null | undefined) =>
+      '"' + String(v ?? "").replace(/"/g, '""') + '"';
+    const linhas = [cab.map(esc).join(";")];
+    for (const m of manuais) {
+      linhas.push(
+        [m.nome, m.empresa, m.cargo, m.email, m.telefone, m.origem, m.obs]
+          .map(esc)
+          .join(";")
+      );
+    }
+    const csv = "﻿" + linhas.join("\r\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    const slug =
+      (eventoNome || "evento").replace(/[^\w]+/g, "-").toLowerCase() || "evento";
+    a.download = "leads-" + slug + ".csv";
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   return (
@@ -112,6 +155,24 @@ export default function LeadsTab({
             </a>
           ) : null}
         </div>
+        {estaLogado ? (
+          <>
+            <label className={styles.logLabel} style={{ marginTop: 14 }}>
+              Ou anexe o arquivo (.xlsx, .xls, .csv)
+            </label>
+            <UploadCampo
+              bucket={BUCKET_LEADS}
+              pathPrefix={"leads/" + eventoId}
+              publico={false}
+              podeEditar={podeEditar}
+              accept=".xlsx,.xls,.csv"
+              storagePath={planilhaPath}
+              nomeArquivo={planilhaNome}
+              onSalvar={(sp, nm) => salvarLeadsPlanilhaAnexo(eventoId, sp, nm)}
+              onRemover={() => removerLeadsPlanilhaAnexo(eventoId)}
+            />
+          </>
+        ) : null}
       </div>
 
       {/* Captação manual — PII, só-logado */}
@@ -119,9 +180,20 @@ export default function LeadsTab({
         <div className={styles.leadsManualHead}>
           <h4 style={{ margin: 0 }}>✍️ Captação manual</h4>
           {estaLogado ? (
-            <span className={styles.leadsCount}>
-              {manuais.length} {manuais.length === 1 ? "lead" : "leads"}
-            </span>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginLeft: "auto" }}>
+              <span className={styles.leadsCount}>
+                {manuais.length} {manuais.length === 1 ? "lead" : "leads"}
+              </span>
+              <button
+                type="button"
+                className={styles.btnSm}
+                title="Exportar os leads manuais como planilha (.csv)"
+                disabled={manuais.length === 0}
+                onClick={onExportarCsv}
+              >
+                ⤓ Exportar CSV
+              </button>
+            </div>
           ) : null}
         </div>
         <p className={styles.logDesc}>

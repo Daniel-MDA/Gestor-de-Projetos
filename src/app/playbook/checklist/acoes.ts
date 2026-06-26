@@ -444,6 +444,345 @@ export async function removerLeadManual(leadId: string): Promise<ResultadoAcao> 
   return { status: "ok" };
 }
 
+// ── ÁRVORE DO CHECKLIST — setores / categorias / itens (edição, só-editor) ───
+// As 3 tabelas têm coluna atualizado_por (ver 10_playbook.sql). A árvore é
+// global (compartilhada por todas as feiras). RLS garante a autorização real.
+
+// SETORES ────────────────────────────────────────────────────────────────────
+
+export async function addSetor(nome: string): Promise<ResultadoAcao> {
+  const { supabase, user } = await ctx();
+  if (!user) return { status: "nao_autenticado" };
+  const limpo = nome.trim();
+  if (!limpo) return { status: "erro", mensagem: "Informe o nome do setor." };
+
+  const max = await supabase
+    .from("playbook_setores")
+    .select("ordem")
+    .order("ordem", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (max.error) return { status: "erro", mensagem: max.error.message };
+  const proximaOrdem = ((max.data?.ordem as number | undefined) ?? -1) + 1;
+
+  const { error } = await supabase.from("playbook_setores").insert({
+    nome: limpo,
+    ordem: proximaOrdem,
+    atualizado_por: user.id,
+  });
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
+export async function renomearSetor(
+  setorId: string,
+  nome: string
+): Promise<ResultadoAcao> {
+  const { supabase, user } = await ctx();
+  if (!user) return { status: "nao_autenticado" };
+  const limpo = nome.trim();
+  if (!limpo) return { status: "erro", mensagem: "Informe o nome do setor." };
+
+  const { error } = await supabase
+    .from("playbook_setores")
+    .update({ nome: limpo, atualizado_por: user.id })
+    .eq("id", setorId);
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
+// Remove o setor. As categorias dele NÃO são apagadas: a FK setor_id é
+// ON DELETE SET NULL (10_playbook.sql), então elas voltam a ficar "sem setor"
+// e aparecem como categorias soltas. Nada de conteúdo é perdido.
+export async function removerSetor(setorId: string): Promise<ResultadoAcao> {
+  const { supabase, user } = await ctx();
+  if (!user) return { status: "nao_autenticado" };
+
+  const { error } = await supabase
+    .from("playbook_setores")
+    .delete()
+    .eq("id", setorId);
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
+// CATEGORIAS ─────────────────────────────────────────────────────────────────
+
+export async function addCategoria(
+  nome: string,
+  setorId: string | null
+): Promise<ResultadoAcao> {
+  const { supabase, user } = await ctx();
+  if (!user) return { status: "nao_autenticado" };
+  const limpo = nome.trim();
+  if (!limpo) return { status: "erro", mensagem: "Informe o nome da divisão." };
+
+  const max = await supabase
+    .from("playbook_categorias")
+    .select("ordem")
+    .order("ordem", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (max.error) return { status: "erro", mensagem: max.error.message };
+  const proximaOrdem = ((max.data?.ordem as number | undefined) ?? -1) + 1;
+
+  const { error } = await supabase.from("playbook_categorias").insert({
+    nome: limpo,
+    setor_id: setorId,
+    ordem: proximaOrdem,
+    atualizado_por: user.id,
+  });
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
+export async function renomearCategoria(
+  categoriaId: string,
+  nome: string
+): Promise<ResultadoAcao> {
+  const { supabase, user } = await ctx();
+  if (!user) return { status: "nao_autenticado" };
+  const limpo = nome.trim();
+  if (!limpo) return { status: "erro", mensagem: "Informe o nome da divisão." };
+
+  const { error } = await supabase
+    .from("playbook_categorias")
+    .update({ nome: limpo, atualizado_por: user.id })
+    .eq("id", categoriaId);
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
+// Remove a categoria e, em cascata (FK ON DELETE CASCADE), seus itens — e as
+// marcações desses itens (que também referenciam item_id em cascata).
+export async function removerCategoria(
+  categoriaId: string
+): Promise<ResultadoAcao> {
+  const { supabase, user } = await ctx();
+  if (!user) return { status: "nao_autenticado" };
+
+  const { error } = await supabase
+    .from("playbook_categorias")
+    .delete()
+    .eq("id", categoriaId);
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
+// ITENS ──────────────────────────────────────────────────────────────────────
+
+export async function addItem(
+  categoriaId: string,
+  nome: string
+): Promise<ResultadoAcao> {
+  const { supabase, user } = await ctx();
+  if (!user) return { status: "nao_autenticado" };
+  const limpo = nome.trim();
+  if (!limpo) return { status: "erro", mensagem: "Informe o nome do item." };
+
+  const max = await supabase
+    .from("playbook_itens")
+    .select("ordem")
+    .eq("categoria_id", categoriaId)
+    .order("ordem", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (max.error) return { status: "erro", mensagem: max.error.message };
+  const proximaOrdem = ((max.data?.ordem as number | undefined) ?? -1) + 1;
+
+  const { error } = await supabase.from("playbook_itens").insert({
+    categoria_id: categoriaId,
+    nome: limpo,
+    ordem: proximaOrdem,
+    atualizado_por: user.id,
+  });
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
+export async function renomearItem(
+  itemId: string,
+  nome: string
+): Promise<ResultadoAcao> {
+  const { supabase, user } = await ctx();
+  if (!user) return { status: "nao_autenticado" };
+  const limpo = nome.trim();
+  if (!limpo) return { status: "erro", mensagem: "Informe o nome do item." };
+
+  const { error } = await supabase
+    .from("playbook_itens")
+    .update({ nome: limpo, atualizado_por: user.id })
+    .eq("id", itemId);
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
+// Remove o item — as marcações dele (PK evento_id,item_id) caem em cascata.
+export async function removerItem(itemId: string): Promise<ResultadoAcao> {
+  const { supabase, user } = await ctx();
+  if (!user) return { status: "nao_autenticado" };
+
+  const { error } = await supabase
+    .from("playbook_itens")
+    .delete()
+    .eq("id", itemId);
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
+// ── ANEXOS — upload real de arquivos (Storage path + nome na tabela) ─────────
+// As Server Actions só gravam o caminho/nome devolvido pelo UploadCampo; o
+// upload binário em si é feito no cliente (UploadCampo) direto no Storage.
+
+// LOGÍSTICA: anexo de um doc fixo (slot). Garante a logística e faz upsert do
+// doc por (logistica_id, slot), preservando o link existente. nome_arquivo +
+// storage_path ficam na tabela playbook_logistica_docs.
+export async function salvarDocAnexo(
+  eventoId: string,
+  slot: DocSlot,
+  storagePath: string,
+  nomeArquivo: string
+): Promise<ResultadoAcao> {
+  const { supabase, user } = await ctx();
+  if (!user) return { status: "nao_autenticado" };
+
+  const { id: logId, erro } = await garantirLogistica(
+    supabase,
+    eventoId,
+    user.id
+  );
+  if (erro || !logId) return { status: "erro", mensagem: erro };
+
+  const existente = await supabase
+    .from("playbook_logistica_docs")
+    .select("id")
+    .eq("logistica_id", logId)
+    .eq("slot", slot)
+    .maybeSingle();
+  if (existente.error)
+    return { status: "erro", mensagem: existente.error.message };
+
+  if (existente.data?.id) {
+    const { error } = await supabase
+      .from("playbook_logistica_docs")
+      .update({
+        storage_path: storagePath,
+        nome_arquivo: nomeArquivo,
+        atualizado_por: user.id,
+      })
+      .eq("id", existente.data.id);
+    if (error) return { status: "erro", mensagem: error.message };
+  } else {
+    const { error } = await supabase.from("playbook_logistica_docs").insert({
+      logistica_id: logId,
+      slot,
+      storage_path: storagePath,
+      nome_arquivo: nomeArquivo,
+      atualizado_por: user.id,
+    });
+    if (error) return { status: "erro", mensagem: error.message };
+  }
+
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
+// LOGÍSTICA: remove o anexo do doc (limpa storage_path + nome_arquivo),
+// mantendo a linha e o eventual link.
+export async function removerDocAnexo(
+  eventoId: string,
+  slot: DocSlot
+): Promise<ResultadoAcao> {
+  const { supabase, user } = await ctx();
+  if (!user) return { status: "nao_autenticado" };
+
+  const existente = await supabase
+    .from("playbook_logistica")
+    .select("id")
+    .eq("evento_id", eventoId)
+    .maybeSingle();
+  if (existente.error)
+    return { status: "erro", mensagem: existente.error.message };
+  if (!existente.data?.id) return { status: "ok" };
+
+  const { error } = await supabase
+    .from("playbook_logistica_docs")
+    .update({
+      storage_path: null,
+      nome_arquivo: null,
+      atualizado_por: user.id,
+    })
+    .eq("logistica_id", existente.data.id)
+    .eq("slot", slot);
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
+// LEADS: anexo da planilha do coletor. Garante a linha de leads (upsert por
+// evento_id) e grava planilha_storage_path + planilha_nome.
+export async function salvarLeadsPlanilhaAnexo(
+  eventoId: string,
+  storagePath: string,
+  nomeArquivo: string
+): Promise<ResultadoAcao> {
+  const { supabase, user } = await ctx();
+  if (!user) return { status: "nao_autenticado" };
+
+  const { error } = await supabase.from("playbook_leads").upsert(
+    {
+      evento_id: eventoId,
+      planilha_storage_path: storagePath,
+      planilha_nome: nomeArquivo,
+      atualizado_por: user.id,
+    },
+    { onConflict: "evento_id" }
+  );
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
+export async function removerLeadsPlanilhaAnexo(
+  eventoId: string
+): Promise<ResultadoAcao> {
+  const { supabase, user } = await ctx();
+  if (!user) return { status: "nao_autenticado" };
+
+  const { error } = await supabase
+    .from("playbook_leads")
+    .update({
+      planilha_storage_path: null,
+      planilha_nome: null,
+      atualizado_por: user.id,
+    })
+    .eq("evento_id", eventoId);
+
+  if (error) return { status: "erro", mensagem: error.message };
+  revalidatePath("/playbook");
+  return { status: "ok" };
+}
+
 // ── PORTAL (1 por feira) — credenciais ───────────────────────────────────────
 
 export async function salvarPortalCampo(

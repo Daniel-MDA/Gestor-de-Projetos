@@ -7,6 +7,8 @@ import { DOC_SLOTS } from "./tipos";
 import {
   salvarLogisticaCampo,
   salvarDocLink,
+  salvarDocAnexo,
+  removerDocAnexo,
   addCusto,
   editarCusto,
   removerCusto,
@@ -14,6 +16,8 @@ import {
   removerColaborador,
   type ResultadoAcao,
 } from "./acoes";
+import UploadCampo from "../_shared/UploadCampo";
+import { BUCKET_PUBLICO } from "../_shared/storage";
 import styles from "./checklist.module.css";
 
 const fmtBRL = (n: number) =>
@@ -57,8 +61,9 @@ export default function LogisticaTab({
   const custos = [...(logistica?.custos ?? [])].sort((a, b) => a.ordem - b.ordem);
   const totalCusto = custos.reduce((s, c) => s + (Number(c.valor) || 0), 0);
 
-  const docLink = (slot: string) =>
-    logistica?.docs.find((d) => d.slot === slot)?.link ?? "";
+  const docDe = (slot: string) =>
+    logistica?.docs.find((d) => d.slot === slot);
+  const docLink = (slot: string) => docDe(slot)?.link ?? "";
 
   function onSalvarCampo(campo: "hotel" | "transporte" | "obs", valor: string) {
     const atual = (logistica?.[campo] ?? "") as string;
@@ -133,6 +138,20 @@ export default function LogisticaTab({
               </a>
             ) : null}
           </div>
+          <label className={styles.logLabel} style={{ marginTop: 14 }}>
+            Ou anexe o arquivo (PDF / imagem)
+          </label>
+          <UploadCampo
+            bucket={BUCKET_PUBLICO}
+            pathPrefix={"logistica/" + eventoId + "/" + slot.key}
+            publico={true}
+            podeEditar={podeEditar}
+            accept=".pdf,image/*"
+            storagePath={docDe(slot.key)?.storage_path ?? null}
+            nomeArquivo={docDe(slot.key)?.nome_arquivo ?? null}
+            onSalvar={(sp, nm) => salvarDocAnexo(eventoId, slot.key, sp, nm)}
+            onRemover={() => removerDocAnexo(eventoId, slot.key)}
+          />
         </div>
       ))}
 
