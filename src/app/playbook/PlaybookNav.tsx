@@ -11,7 +11,15 @@ export default function PlaybookNav({
     <nav className="pb-nav">
       <div className="pb-nav-inner">
         <Link href="/" className="pb-logo" title="Voltar ao início">
-          <span className="pb-logo-mark">TF</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/tecnofink-logo.png"
+            alt="Tecnofink"
+            className="pb-logo-img"
+          />
+          <span className="pb-logo-sep" aria-hidden="true">
+            ·
+          </span>
           <span className="pb-logo-text">Playbook 2026</span>
         </Link>
         <ul className="pb-nav-links">
@@ -20,6 +28,9 @@ export default function PlaybookNav({
           </li>
           <li>
             <a href="#catalogos">Catálogos</a>
+          </li>
+          <li>
+            <a href="#checklist">Checklist</a>
           </li>
           <li>
             <a href="#associacoes">Associações</a>

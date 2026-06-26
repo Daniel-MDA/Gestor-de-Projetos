@@ -45,7 +45,9 @@
 .playbook-root .pb-nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; max-width: 1400px; margin: 0 auto; }
 .playbook-root .pb-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
 .playbook-root .pb-logo-mark { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--accent); color: #fff; border-radius: 8px; font-family: var(--font-bricolage), sans-serif; font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; }
-.playbook-root .pb-logo-text { font-family: var(--font-bricolage), sans-serif; font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em; }
+.playbook-root .pb-logo-text { font-family: var(--font-bricolage), sans-serif; font-weight: 600; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--ink-2); }
+.playbook-root .pb-logo-img { height: 26px; width: auto; display: block; }
+.playbook-root .pb-logo-sep { color: var(--line-2); font-size: 1.3rem; line-height: 1; }
 .playbook-root .pb-nav-links { display: flex; gap: 26px; align-items: center; list-style: none; }
 .playbook-root .pb-nav-links a { color: var(--ink-2); text-decoration: none; font-size: 0.92rem; font-weight: 500; transition: color 0.2s; }
 .playbook-root .pb-nav-links a:hover { color: var(--accent); }

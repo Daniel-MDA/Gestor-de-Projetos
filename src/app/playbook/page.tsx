@@ -3,6 +3,8 @@ import PlaybookNav from "./PlaybookNav";
 import EventosSection from "./EventosSection";
 import CatalogosSection from "./catalogos/CatalogosSection";
 import { carregar as carregarCatalogos } from "./catalogos/dados";
+import ChecklistSection from "./checklist/ChecklistSection";
+import { carregar as carregarChecklist } from "./checklist/dados";
 import AssociacoesSection from "./associacoes/AssociacoesSection";
 import { carregar as carregarAssociacoes } from "./associacoes/dados";
 import ProspeccaoSection from "./prospeccao/ProspeccaoSection";
@@ -21,6 +23,7 @@ export default async function PlaybookPage() {
     { user, podeEditar },
     eventos,
     catalogos,
+    checklist,
     associacoes,
     prospeccao,
     brindes,
@@ -30,6 +33,7 @@ export default async function PlaybookPage() {
     getPlaybookViewer(),
     fetchEventos(),
     carregarCatalogos(),
+    carregarChecklist(),
     carregarAssociacoes(),
     carregarProspeccao(),
     carregarBrindes(),
@@ -56,6 +60,11 @@ export default async function PlaybookPage() {
 
         <EventosSection eventos={eventos} podeEditar={podeEditar} />
         <CatalogosSection dados={catalogos} podeEditar={podeEditar} />
+        <ChecklistSection
+          dados={checklist}
+          estaLogado={!!user}
+          podeEditar={podeEditar}
+        />
         <AssociacoesSection dados={associacoes} podeEditar={podeEditar} />
         <ProspeccaoSection dados={prospeccao} podeEditar={podeEditar} />
         <BrindesSection dados={brindes} podeEditar={podeEditar} />
