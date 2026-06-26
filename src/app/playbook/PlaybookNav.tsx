@@ -19,6 +19,9 @@ export default function PlaybookNav({
             <a href="#eventos">Eventos</a>
           </li>
           <li>
+            <a href="#catalogos">Catálogos</a>
+          </li>
+          <li>
             <a href="#associacoes">Associações</a>
           </li>
           <li>
@@ -26,6 +29,9 @@ export default function PlaybookNav({
           </li>
           <li>
             <a href="#brindes">Brindes</a>
+          </li>
+          <li>
+            <a href="#stands2027">Stands</a>
           </li>
           <li>
             <a href="#workshops">Workshops</a>

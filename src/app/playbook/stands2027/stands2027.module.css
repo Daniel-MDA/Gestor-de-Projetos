@@ -1,0 +1,336 @@
+/* Stands 2027 — fiel ao bloco .stands2027 do HTML original, usando tokens. */
+
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 28px;
+  background: var(--bg-pure);
+}
+.resumoCard {
+  padding: 20px 22px;
+  border-right: 1px solid var(--line);
+}
+.resumoCard:last-child {
+  border-right: none;
+}
+.resumoNum {
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+.resumoLbl {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.6rem;
+  color: var(--ink-3);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-pure);
+  padding: 20px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.nome {
+  flex: 1;
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  padding: 6px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--bg);
+  min-width: 0;
+}
+.nome::placeholder {
+  color: var(--ink-3);
+  font-weight: 600;
+}
+.nome:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-pure);
+}
+/* Nome em modo leitura */
+.nomeStatic {
+  flex: 1;
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  padding: 6px 10px;
+  min-width: 0;
+}
+
+/* Status — select (editor) ou pílula (leitura) */
+.status {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 7px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.status:focus {
+  outline: none;
+}
+.statusStatic {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 7px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.ok {
+  background: rgba(45, 186, 112, 0.12);
+  color: #1f8a52;
+  border-color: transparent;
+}
+.warn {
+  background: rgba(240, 160, 30, 0.14);
+  color: #b9770c;
+  border-color: transparent;
+}
+.info {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: transparent;
+}
+.todo {
+  background: var(--bg-2);
+  color: var(--ink-2);
+}
+
+.del {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-3);
+  font-size: 0.85rem;
+  padding: 4px 6px;
+  flex-shrink: 0;
+}
+.del:hover {
+  color: var(--crit);
+}
+.del:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.field label {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.56rem;
+  color: var(--ink-3);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.field input,
+.obs {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.9rem;
+  padding: 9px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--bg);
+  color: var(--ink);
+  min-width: 0;
+}
+.field input:focus,
+.obs:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-pure);
+}
+.field input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.field input[type="number"]::-webkit-outer-spin-button,
+.field input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Valor em modo leitura */
+.fieldVal {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.9rem;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--bg);
+  color: var(--ink);
+  min-width: 0;
+}
+.obs {
+  width: 100%;
+}
+
+.docsTitulo {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.62rem;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 16px 0 10px;
+}
+.docs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.doc {
+  border: 1px dashed var(--line-2);
+  border-radius: 9px;
+  padding: 12px;
+}
+.docTag {
+  font-family: var(--font-manrope), sans-serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.docLink {
+  width: 100%;
+  margin-top: 8px;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.82rem;
+  padding: 7px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--bg);
+  color: var(--ink);
+}
+.docLink:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-pure);
+}
+.docAbrir {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--font-manrope), sans-serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+.docAbrir:hover {
+  text-decoration: underline;
+}
+.docVazio {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.82rem;
+  color: var(--ink-3);
+  font-style: italic;
+}
+
+.addStand {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Botões pequenos (adaptados do .btn-sm do HTML original) */
+.btnSm {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--bg-pure);
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s, background 0.15s;
+}
+.btnSm:hover {
+  border-color: var(--accent);
+}
+.btnSmPrimary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.btnSmPrimary:hover {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+}
+.btnSm:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ink-3);
+  border: 1px dashed var(--line-2);
+  border-radius: 12px;
+}
+.emptyState strong {
+  display: block;
+  font-family: var(--font-bricolage), sans-serif;
+  font-size: 1.2rem;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.erro {
+  color: var(--crit);
+}
+
+@media (max-width: 700px) {
+  .resumo,
+  .meta {
+    grid-template-columns: 1fr;
+  }
+  .docs {
+    grid-template-columns: 1fr;
+  }
+  .addStand {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,356 @@
+/* Resumo (4 cards) */
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-bottom: 48px;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.resumoCard {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-pure);
+  padding: 24px 24px 22px;
+}
+.resumoNum {
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  font-size: 2.1rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--accent);
+}
+.resumoNum.crit {
+  color: var(--crit);
+}
+.resumoLbl {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.66rem;
+  color: var(--ink-3);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+/* Bloco (título + tabela) */
+.bloco {
+  margin-bottom: 40px;
+}
+.blocoHead {
+  margin-bottom: 14px;
+}
+.blocoTag {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.74rem;
+  color: var(--ink-2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Tabela com scroll horizontal + colunas sticky */
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  background: var(--bg-pure);
+  -webkit-overflow-scrolling: touch;
+}
+.proj {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 940px;
+}
+.proj th,
+.proj td {
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  padding: 12px 13px;
+  text-align: right;
+  font-size: 0.84rem;
+  white-space: nowrap;
+  font-family: var(--font-jetbrains-mono), monospace;
+}
+.proj thead th {
+  background: var(--bg-2);
+  font-size: 0.6rem;
+  color: var(--ink-3);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-weight: 500;
+  vertical-align: bottom;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.evDate {
+  display: block;
+  font-size: 0.58rem;
+  color: var(--ink-3);
+  font-weight: 400;
+  margin-top: 4px;
+  letter-spacing: 0;
+}
+.proj th.prod,
+.proj td.prod {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  background: var(--bg-pure);
+  font-family: var(--font-bricolage), sans-serif;
+  z-index: 2;
+}
+.proj thead th.prod {
+  background: var(--bg-2);
+  z-index: 3;
+}
+/* coluna estática (não-sticky), usada no cabeçalho "Comprar antes de" */
+.proj th.prodStatic {
+  position: static;
+}
+.proj td.prod {
+  font-weight: 600;
+  color: var(--ink);
+  box-shadow: 1px 0 0 var(--line);
+}
+.proj td.bal.neg {
+  color: var(--crit);
+  font-weight: 700;
+  background: rgba(214, 43, 43, 0.06);
+}
+.proj td.bal.pos {
+  color: var(--ink-2);
+}
+.proj td.balTotal {
+  font-weight: 700;
+  color: var(--ink);
+}
+.proj td.estoque {
+  padding: 6px 10px;
+}
+.proj td.deadline {
+  text-align: left;
+  font-family: var(--font-manrope), sans-serif;
+}
+.dlBuy {
+  color: var(--crit);
+  font-weight: 700;
+  font-size: 0.86rem;
+}
+.dlOk {
+  color: #1f8a52;
+  font-weight: 600;
+  font-size: 0.86rem;
+}
+.dlSub {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  font-weight: 500;
+  margin-top: 3px;
+}
+.proj tbody tr:hover td {
+  background: var(--bg-2);
+}
+.proj tbody tr:hover td.prod {
+  background: var(--bg-2);
+}
+.proj tbody tr:hover td.bal.neg {
+  background: rgba(214, 43, 43, 0.1);
+}
+
+.scrollHint {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.62rem;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+/* Botão remover catálogo */
+.catDel {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-3);
+  font-size: 0.78rem;
+  padding: 0 3px;
+}
+.catDel:hover {
+  color: var(--crit);
+}
+.catDel:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+/* input de estoque/consumo editável (campo azul) */
+.estoqueInput {
+  width: 84px;
+  text-align: right;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.86rem;
+  color: var(--accent);
+  font-weight: 600;
+  background: var(--accent-soft);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 6px 8px;
+  transition: all 0.15s;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.estoqueInput:hover {
+  border-color: var(--line-2);
+}
+.estoqueInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-pure);
+}
+.estoqueInput::-webkit-outer-spin-button,
+.estoqueInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Adicionar catálogo */
+.addCatalogo {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.addCatalogo input,
+.addCatalogo select {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.92rem;
+  padding: 12px 14px;
+  border: 1.5px solid var(--accent);
+  border-radius: 8px;
+  background: var(--bg-pure);
+  color: var(--ink);
+}
+.addCatalogo input[type="text"] {
+  flex: 2 1 200px;
+}
+.addCatalogo input[type="number"] {
+  flex: 0 0 150px;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.addCatalogo input:focus,
+.addCatalogo select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* Botão pequeno (.btn-sm do HTML original) */
+.btnSm {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 12px 18px;
+  border: 1.5px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btnSm:hover {
+  background: var(--accent-2, var(--accent));
+}
+.btnSm:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+/* Acordeão: consumo previsto por evento */
+.accordion {
+  margin-top: 32px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.accHead {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  background: var(--bg-2);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+.accHead:hover {
+  background: var(--accent-soft);
+}
+.accTitulo {
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+.accSub {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.62rem;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.accArrow {
+  margin-left: auto;
+  color: var(--ink-2);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.accHead.aberto .accArrow {
+  transform: rotate(180deg);
+}
+.accBody {
+  padding: 20px 22px 24px;
+  border-top: 1px solid var(--line);
+}
+.accDesc {
+  font-size: 0.88rem;
+  color: var(--ink-2);
+  margin-bottom: 18px;
+}
+
+.erro {
+  color: var(--crit);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ink-3);
+  border: 1px dashed var(--line-2);
+  border-radius: 12px;
+}
+.emptyState strong {
+  display: block;
+  font-family: var(--font-bricolage), sans-serif;
+  font-size: 1.2rem;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+@media (max-width: 760px) {
+  .resumo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .addCatalogo {
+    flex-direction: column;
+  }
+  .addCatalogo input[type="number"] {
+    flex: 1;
+  }
+}
