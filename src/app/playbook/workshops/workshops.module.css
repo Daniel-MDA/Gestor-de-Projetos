@@ -1,0 +1,304 @@
+/* Seção Workshops — portado fielmente das classes .ws-* do HTML original.
+   Usa os tokens var(--...) definidos em .playbook-root (herdados via cascata). */
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-pure);
+  padding: 20px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tema {
+  flex: 1;
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  padding: 6px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--bg);
+  min-width: 0;
+}
+.tema::placeholder {
+  color: var(--ink-3);
+  font-weight: 600;
+}
+.tema:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-pure);
+}
+
+/* Tema em modo somente leitura (não editor) */
+.temaLeitura {
+  flex: 1;
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 0;
+  min-width: 0;
+}
+
+.del {
+  flex-shrink: 0;
+}
+
+/* Botão de ícone (remover workshop) */
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-3);
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.iconBtn:hover {
+  background: var(--bg-2);
+  color: var(--ink);
+}
+.iconBtnDanger:hover {
+  color: var(--crit);
+  background: rgba(214, 43, 43, 0.08);
+}
+.iconBtn:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* Campo rotulado (organizador / local / data) */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.field label {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.56rem;
+  color: var(--ink-3);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.field input,
+.obs {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.9rem;
+  padding: 9px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--bg);
+  color: var(--ink);
+  min-width: 0;
+}
+.field input:focus,
+.obs:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-pure);
+}
+.obs {
+  width: 100%;
+}
+
+/* Valor do campo em modo leitura */
+.fieldValor {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.9rem;
+  color: var(--ink);
+  margin: 0;
+}
+.fieldVazio {
+  color: var(--ink-3);
+  font-style: italic;
+}
+
+.prodTitulo {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.64rem;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.prodLista {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.prod {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 7px;
+  transition: background 0.15s;
+}
+.prod:hover {
+  background: var(--bg-2);
+}
+.prod::before {
+  content: "▸";
+  color: var(--accent);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+.prodTxt {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--ink);
+  outline: none;
+  border-radius: 4px;
+  padding: 1px 4px;
+  min-width: 0;
+}
+.prodTxt:focus {
+  background: var(--accent-soft);
+}
+
+.prodDel {
+  opacity: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-3);
+  font-size: 0.78rem;
+  flex-shrink: 0;
+  padding: 2px 4px;
+}
+.prod:hover .prodDel {
+  opacity: 1;
+}
+.prodDel:hover {
+  color: var(--crit);
+}
+
+.prodVazio {
+  color: var(--ink-3);
+  font-size: 0.86rem;
+  font-style: italic;
+  padding: 4px 8px;
+}
+
+.prodAdd {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.prodAdd input {
+  flex: 1;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.88rem;
+  padding: 9px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--bg);
+  color: var(--ink);
+  min-width: 0;
+}
+.prodAdd input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-pure);
+}
+
+/* Botão pequeno padrão do playbook */
+.btnSm {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 9px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--line-2);
+  background: var(--bg-pure);
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--ink-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btnSm:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btnSm:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+.btnSmPrimary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.btnSmPrimary:hover {
+  background: var(--accent-2);
+  color: #fff;
+}
+
+.addWs {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ink-3);
+}
+.emptyState strong {
+  display: block;
+  font-family: var(--font-bricolage), sans-serif;
+  font-size: 1.2rem;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.erro {
+  color: var(--crit);
+}
+
+@media (max-width: 700px) {
+  .meta {
+    grid-template-columns: 1fr;
+  }
+  .addWs {
+    flex-direction: column;
+  }
+}

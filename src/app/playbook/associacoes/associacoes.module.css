@@ -1,0 +1,316 @@
+/* SEÇÃO 04 — Associações & convênios.
+   Portado fielmente do HTML original (classes .assoc*). Tokens (--ink, --accent,
+   etc.) e fontes (var(--font-*)) vêm do tema global .playbook-root. */
+
+.lista {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-pure);
+  padding: 22px;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+
+.nome {
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  flex: 1;
+  outline: none;
+  padding: 2px 6px;
+  border-radius: 5px;
+  min-width: 0;
+}
+.nome:focus {
+  background: var(--accent-soft);
+}
+
+/* leitura (não-editor): nome como título estático */
+.nomeRo {
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  flex: 1;
+  padding: 2px 6px;
+  min-width: 0;
+}
+
+.desc {
+  text-align: right;
+  flex-shrink: 0;
+}
+.descVal {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 2px;
+}
+.descInput {
+  width: 64px;
+  text-align: right;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 2px 6px;
+}
+.descInput:hover {
+  border-color: var(--line-2);
+}
+.descInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-pure);
+}
+.descInput::-webkit-outer-spin-button,
+.descInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* leitura: número do desconto (ou —) */
+.descNum {
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+
+.descPct {
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--accent);
+}
+.descLabel {
+  display: block;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.58rem;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  line-height: 1.35;
+}
+
+.del {
+  flex-shrink: 0;
+}
+
+.benefTitulo {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.64rem;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.benefLista {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.benef {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 7px 8px;
+  border-radius: 7px;
+  transition: background 0.15s;
+}
+.benef:hover {
+  background: var(--bg-2);
+}
+.benef::before {
+  content: "✓";
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+.benefTxt {
+  flex: 1;
+  font-size: 0.92rem;
+  color: var(--ink);
+  outline: none;
+  border-radius: 4px;
+  padding: 1px 4px;
+  min-width: 0;
+}
+.benefTxt:focus {
+  background: var(--accent-soft);
+}
+.benefDel {
+  opacity: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-3);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  padding: 2px 4px;
+}
+.benef:hover .benefDel {
+  opacity: 1;
+}
+.benefDel:hover {
+  color: var(--crit);
+}
+.vazio {
+  color: var(--ink-3);
+  font-size: 0.88rem;
+  font-style: italic;
+  padding: 4px 8px;
+}
+
+.foot {
+  display: flex;
+  gap: 8px;
+}
+.foot input {
+  flex: 1;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.88rem;
+  padding: 9px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--bg);
+  color: var(--ink);
+  min-width: 0;
+}
+.foot input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-pure);
+}
+
+/* adicionar associação (rodapé da seção) */
+.addAssoc {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+}
+.addAssoc input {
+  flex: 1;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.92rem;
+  padding: 12px 14px;
+  border: 1.5px solid var(--accent);
+  border-radius: 8px;
+  background: var(--bg-pure);
+  color: var(--ink);
+}
+.addAssoc input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* estado vazio */
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ink-3);
+  grid-column: 1 / -1;
+}
+.emptyState strong {
+  display: block;
+  font-family: var(--font-bricolage), sans-serif;
+  font-size: 1.2rem;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+/* botões reaproveitados do HTML (btn-sm / icon-btn) — locais ao módulo */
+.btnSm {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 9px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--line-2);
+  background: var(--bg-pure);
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--ink-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.btnSm:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btnSm.primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.btnSm.primary:hover {
+  background: var(--accent-2);
+  color: #fff;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-3);
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.iconBtn:hover {
+  background: var(--bg-2);
+  color: var(--ink);
+}
+.iconBtn.danger:hover {
+  color: var(--crit);
+  background: rgba(214, 43, 43, 0.08);
+}
+
+.erro {
+  color: var(--crit);
+}
+
+@media (max-width: 760px) {
+  .lista {
+    grid-template-columns: 1fr;
+  }
+  .addAssoc {
+    flex-direction: column;
+  }
+}

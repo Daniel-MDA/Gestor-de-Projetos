@@ -18,6 +18,18 @@ export default function PlaybookNav({
           <li>
             <a href="#eventos">Eventos</a>
           </li>
+          <li>
+            <a href="#associacoes">Associações</a>
+          </li>
+          <li>
+            <a href="#avaliacao">Prospecção</a>
+          </li>
+          <li>
+            <a href="#brindes">Brindes</a>
+          </li>
+          <li>
+            <a href="#workshops">Workshops</a>
+          </li>
           {podeEditar ? (
             <li>
               <span className="pb-badge-editor">✎ Modo editor</span>

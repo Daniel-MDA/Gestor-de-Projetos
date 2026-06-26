@@ -1,0 +1,346 @@
+/* Prospecção de eventos — portado do HTML original (classes .prosp*). */
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.setor {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-pure);
+  overflow: hidden;
+}
+
+.setorHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: var(--accent-soft);
+  border-bottom: 1px solid var(--line);
+}
+
+.setorTag {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--accent);
+  padding: 4px 9px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.setorNome {
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--accent);
+  outline: none;
+  padding: 2px 6px;
+  border-radius: 5px;
+}
+.setorNome:focus {
+  background: var(--bg-pure);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.count {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.62rem;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.setorDel {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-3);
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.iconBtn:hover {
+  background: var(--bg-2);
+  color: var(--ink);
+}
+.iconBtnDanger:hover {
+  color: var(--crit);
+  background: rgba(214, 43, 43, 0.08);
+}
+.iconBtn:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+.eventos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+}
+
+.vazio {
+  color: var(--ink-3);
+  font-size: 0.88rem;
+  font-style: italic;
+  padding: 6px 4px;
+}
+
+.ev {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 14px;
+  background: var(--bg);
+}
+
+.evTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.evNome {
+  flex: 1;
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: var(--ink);
+  outline: none;
+  padding: 2px 5px;
+  border-radius: 5px;
+  min-width: 0;
+}
+.evNome:focus {
+  background: var(--accent-soft);
+}
+
+.evPart {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.82rem;
+  padding: 6px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: var(--bg-pure);
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.evPart:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.evDel {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-3);
+  font-size: 0.85rem;
+  padding: 4px 6px;
+  flex-shrink: 0;
+}
+.evDel:hover {
+  color: var(--crit);
+}
+.evDel:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+.evLinkrow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.evLink {
+  flex: 1;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.86rem;
+  padding: 8px 11px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--bg-pure);
+  color: var(--ink);
+  min-width: 0;
+}
+.evLink:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.evLinkStatic {
+  flex: 1;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.86rem;
+  color: var(--ink-2);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.evObs {
+  width: 100%;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.84rem;
+  padding: 8px 11px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--bg-pure);
+  color: var(--ink);
+}
+.evObs:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.evObsStatic {
+  font-size: 0.84rem;
+  color: var(--ink-2);
+  margin-top: 4px;
+}
+
+.partBadge {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.78rem;
+  padding: 5px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: var(--bg-pure);
+  color: var(--accent);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Botão genérico pequeno (Abrir ↗ / + Evento / + Setor) */
+.btnSm {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 9px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--line-2);
+  background: var(--bg-pure);
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--ink-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btnSm:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btnSmPrimary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.btnSmPrimary:hover {
+  background: var(--accent-2);
+  color: #fff;
+}
+.btnSm:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+.addEv {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 16px 16px;
+}
+.addEv input,
+.addEv select {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.88rem;
+  padding: 9px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--bg);
+  color: var(--ink);
+}
+.addEv input:focus,
+.addEv select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.addEv input:nth-child(1) {
+  flex: 2 1 180px;
+}
+.addEv input:nth-child(2) {
+  flex: 2 1 200px;
+}
+
+.addSetor {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+}
+.addSetor input {
+  flex: 1;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.92rem;
+  padding: 12px 14px;
+  border: 1.5px solid var(--accent);
+  border-radius: 8px;
+  background: var(--bg-pure);
+  color: var(--ink);
+}
+.addSetor input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ink-3);
+}
+.emptyState strong {
+  display: block;
+  font-family: var(--font-bricolage), sans-serif;
+  font-size: 1.2rem;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.erro {
+  color: var(--crit);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 600px) {
+  .addEv,
+  .addSetor {
+    flex-direction: column;
+  }
+  .evTop {
+    flex-wrap: wrap;
+  }
+}
