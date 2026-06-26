@@ -1,0 +1,104 @@
+/* Tema do Playbook 2026 — escopado em .playbook-root para não vazar para o resto do app.
+   Portado do HTML original da Fernanda (paleta navy + Bricolage Grotesque). */
+
+.playbook-root {
+  --bg: #f8f9fc;
+  --bg-pure: #ffffff;
+  --bg-2: #f1f2f7;
+  --bg-3: #e7e8ef;
+  --line: #e5e5ea;
+  --line-2: #d4d4da;
+  --ink: #18182a;
+  --ink-2: #4a4a5a;
+  --ink-3: #8e8e9a;
+  --accent: #0c0059;
+  --accent-2: #1f1675;
+  --accent-soft: rgba(12, 0, 89, 0.06);
+  --warn: #e85d2e;
+  --live: #2dba70;
+  --crit: #d62b2b;
+  --grid: rgba(12, 0, 89, 0.025);
+
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+}
+.playbook-root * { box-sizing: border-box; }
+.playbook-root .pb-container { max-width: 1320px; margin: 0 auto; padding: 0 32px; }
+
+/* NAV */
+.playbook-root .pb-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+}
+.playbook-root .pb-nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; max-width: 1400px; margin: 0 auto; }
+.playbook-root .pb-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+.playbook-root .pb-logo-mark { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--accent); color: #fff; border-radius: 8px; font-family: var(--font-bricolage), sans-serif; font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; }
+.playbook-root .pb-logo-text { font-family: var(--font-bricolage), sans-serif; font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em; }
+.playbook-root .pb-nav-links { display: flex; gap: 26px; align-items: center; list-style: none; }
+.playbook-root .pb-nav-links a { color: var(--ink-2); text-decoration: none; font-size: 0.92rem; font-weight: 500; transition: color 0.2s; }
+.playbook-root .pb-nav-links a:hover { color: var(--accent); }
+.playbook-root .pb-badge-editor { font-family: var(--font-jetbrains-mono), monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); background: var(--accent-soft); padding: 6px 12px; border-radius: 999px; }
+.playbook-root .pb-nav-cta { background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+.playbook-root .pb-nav-cta:hover { background: var(--accent); }
+
+/* HERO */
+.playbook-root .hero { padding: 72px 0 32px; }
+.playbook-root .hero-tag { display: inline-flex; align-items: center; gap: 10px; color: var(--ink-2); margin-bottom: 22px; font-family: var(--font-jetbrains-mono), monospace; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.playbook-root .hero-tag::before { content: ""; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 4px rgba(12, 0, 89, 0.12); }
+.playbook-root .hero h1 { font-family: var(--font-bricolage), sans-serif; font-weight: 600; font-size: clamp(2.4rem, 6vw, 5rem); line-height: 0.98; letter-spacing: -0.035em; margin-bottom: 18px; color: var(--ink); }
+.playbook-root .hero h1 em { font-style: normal; color: var(--accent); font-weight: 700; }
+.playbook-root .hero-sub { font-size: 1.1rem; color: var(--ink-2); max-width: 640px; }
+
+/* SECTION HEAD */
+.playbook-root .section { padding: 56px 0; border-top: 1px solid var(--line); }
+.playbook-root .section-head { display: grid; grid-template-columns: 200px 1fr; gap: 60px; margin-bottom: 40px; align-items: end; }
+.playbook-root .section-num { font-family: var(--font-jetbrains-mono), monospace; font-size: 0.85rem; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; }
+.playbook-root .section-num::before { content: ""; display: block; width: 36px; height: 2px; background: var(--accent); margin-bottom: 14px; }
+.playbook-root .section-title { font-family: var(--font-bricolage), sans-serif; font-weight: 600; font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.04; letter-spacing: -0.025em; max-width: 780px; color: var(--ink); }
+.playbook-root .section-title em { font-style: normal; color: var(--ink-3); }
+.playbook-root .section-intro { color: var(--ink-2); font-size: 0.98rem; line-height: 1.6; max-width: 720px; margin-bottom: 32px; }
+.playbook-root .section-intro strong { color: var(--ink); font-weight: 600; }
+
+/* EVENTOS */
+.playbook-root .eventos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); background: var(--bg); }
+.playbook-root .evento-card { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 28px 26px 26px; position: relative; transition: background 0.3s; background: var(--bg-pure); }
+.playbook-root .evento-card:hover { background: var(--bg-2); }
+.playbook-root .evento-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 18px; }
+.playbook-root .evento-num { font-family: var(--font-jetbrains-mono), monospace; font-size: 0.68rem; color: var(--ink-3); letter-spacing: 0.06em; padding-top: 4px; }
+.playbook-root .evento-status { font-family: var(--font-jetbrains-mono), monospace; font-size: 0.62rem; font-weight: 500; padding: 4px 9px; border-radius: 999px; letter-spacing: 0.06em; text-transform: uppercase; border: none; white-space: nowrap; }
+.playbook-root .status-concluido { background: rgba(45, 186, 112, 0.12); color: #1f8a52; }
+.playbook-root .status-andamento { background: rgba(232, 93, 46, 0.12); color: var(--warn); }
+.playbook-root .status-nao-iniciado { background: rgba(142, 142, 154, 0.15); color: var(--ink-3); }
+.playbook-root .evento-status.editable { cursor: pointer; transition: filter 0.15s, box-shadow 0.15s; }
+.playbook-root .evento-status.editable::after { content: " ✎"; opacity: 0.55; font-size: 0.9em; }
+.playbook-root .evento-status.editable:hover { filter: brightness(0.95); box-shadow: 0 0 0 2px rgba(12, 0, 89, 0.12); }
+.playbook-root .evento-status.editable:disabled { opacity: 0.5; cursor: progress; }
+.playbook-root .evento-card h4 { font-family: var(--font-bricolage), sans-serif; font-weight: 600; font-size: 1.25rem; letter-spacing: -0.015em; margin-bottom: 6px; line-height: 1.15; color: var(--ink); }
+.playbook-root .evento-card .local { font-size: 0.88rem; color: var(--ink-3); margin-bottom: 14px; }
+.playbook-root .evento-obs { font-size: 0.84rem; color: var(--ink-2); margin-top: 12px; font-style: italic; }
+.playbook-root .evento-data { font-family: var(--font-jetbrains-mono), monospace; font-size: 0.74rem; color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; font-weight: 500; padding-top: 14px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+.playbook-root .evento-card.custom { box-shadow: inset 3px 0 0 var(--accent); }
+
+/* divisor internacionais */
+.playbook-root .intl-divider { display: flex; align-items: center; gap: 16px; margin: 40px 0 0; }
+.playbook-root .intl-divider span { font-family: var(--font-jetbrains-mono), monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); }
+.playbook-root .intl-divider::before, .playbook-root .intl-divider::after { content: ""; height: 1px; background: var(--line); flex: 1; }
+
+/* responsivo */
+@media (max-width: 860px) {
+  .playbook-root .eventos-grid { grid-template-columns: 1fr; }
+  .playbook-root .section-head { grid-template-columns: 1fr; gap: 14px; }
+  .playbook-root .pb-nav-links { gap: 14px; }
+}
