@@ -40,7 +40,7 @@ export default function LoginForm() {
     }
 
     // Sucesso: redireciona pro dashboard
-    router.push("/dashboard");
+    router.push("/tarefas");
     router.refresh(); // força re-renderização com a nova sessão
   }
 

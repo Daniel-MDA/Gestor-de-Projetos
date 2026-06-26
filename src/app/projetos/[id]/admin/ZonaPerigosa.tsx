@@ -12,7 +12,7 @@ import {
 import {
   arquivarProjetoAction,
   excluirProjetoAction,
-} from "./zonaPerigosa";
+} from "./acoesZonaPerigosa";
 
 type Props = {
   projetoId: string;
@@ -40,7 +40,7 @@ export default function ZonaPerigosa({ projetoId, projetoNome }: Props) {
     }
 
     // Sucesso → fora do projeto. Redireciona pro dashboard.
-    router.push("/dashboard");
+    router.push("/tarefas");
     router.refresh();
   }
 
@@ -56,7 +56,7 @@ export default function ZonaPerigosa({ projetoId, projetoNome }: Props) {
       return;
     }
 
-    router.push("/dashboard");
+    router.push("/tarefas");
     router.refresh();
   }
 

@@ -25,7 +25,7 @@ export default function NovoProjetoPage() {
       return;
     }
 
-    router.push("/dashboard");
+    router.push("/tarefas");
     router.refresh();
   }
 
@@ -33,11 +33,11 @@ export default function NovoProjetoPage() {
     <main className="min-h-screen bg-[#f8f6f1] py-10 px-6">
       <div className="max-w-xl mx-auto">
         <Link
-          href="/dashboard"
+          href="/tarefas"
           className="inline-flex items-center gap-1.5 text-sm text-[#7c7a72] hover:text-[#1a1815] mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          Voltar ao dashboard
+          Voltar às tarefas
         </Link>
 
         <div className="bg-white border border-[#e6e2d6] rounded-2xl p-8">
@@ -103,7 +103,7 @@ export default function NovoProjetoPage() {
 
             <div className="flex justify-end gap-2 pt-2">
               <Link
-                href="/dashboard"
+                href="/tarefas"
                 className="px-4 py-2 text-sm text-[#4b4942] hover:bg-[#f3f0e8] rounded-lg transition-colors"
               >
                 Cancelar

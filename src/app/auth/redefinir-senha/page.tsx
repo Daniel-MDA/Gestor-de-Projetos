@@ -37,7 +37,7 @@ export default function RedefinirSenhaPage() {
  
     setOk(true);
     setTimeout(() => {
-      router.push("/dashboard");
+      router.push("/tarefas");
     }, 2000);
   }
  

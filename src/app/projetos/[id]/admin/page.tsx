@@ -41,11 +41,11 @@ export default async function AdminProjetoPage({
       <main className="min-h-screen bg-[#f8f6f1] py-10 px-6">
         <div className="max-w-xl mx-auto">
           <Link
-            href="/dashboard"
+            href="/tarefas"
             className="inline-flex items-center gap-1.5 text-sm text-[#7c7a72] hover:text-[#1a1815] mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            Voltar ao dashboard
+            Voltar às tarefas
           </Link>
           <div className="bg-white border border-[#e6e2d6] rounded-2xl p-8 text-center">
             <ShieldAlert className="w-12 h-12 text-[#c64429] mx-auto mb-3" />
@@ -104,7 +104,7 @@ export default async function AdminProjetoPage({
     <main className="min-h-screen bg-[#f8f6f1] py-10 px-6">
       <div className="max-w-3xl mx-auto">
         <Link
-          href="/dashboard"
+          href="/tarefas"
           className="inline-flex items-center gap-1.5 text-sm text-[#7c7a72] hover:text-[#1a1815] mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />

@@ -48,7 +48,7 @@ export async function criarProjetoAction(
   });
 
   // Invalida cache do dashboard
-  revalidatePath("/dashboard");
+  revalidatePath("/tarefas");
 
   return { ok: true, projetoId: resultado.projeto_id };
 }

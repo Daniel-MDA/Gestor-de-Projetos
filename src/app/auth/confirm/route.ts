@@ -35,7 +35,7 @@ redirectTo.searchParams.set("erro", "link_expirado");
   if (type === "recovery") {
     redirectTo.pathname = "/auth/redefinir-senha";
   } else {
-    redirectTo.pathname = "/dashboard";
+    redirectTo.pathname = "/tarefas";
   }
  
   redirectTo.searchParams.delete("erro");

@@ -39,7 +39,7 @@ export async function arquivarProjetoAction(
     cookieStore.delete("projeto_atual");
   }
 
-  revalidatePath("/dashboard");
+  revalidatePath("/tarefas");
   return { ok: true };
 }
 
@@ -124,6 +124,6 @@ export async function excluirProjetoAction(
     cookieStore.delete("projeto_atual");
   }
 
-  revalidatePath("/dashboard");
+  revalidatePath("/tarefas");
   return { ok: true };
 }

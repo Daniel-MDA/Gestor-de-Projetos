@@ -137,7 +137,7 @@ export default function OverduePopup({ tarefas, projetoId }: Props) {
             onClick={fechar}
             className="px-4 py-2 text-sm bg-[#1a1815] hover:bg-[#1f4e79] text-white rounded-lg transition-colors"
           >
-            Ver dashboard
+            Ver tarefas
           </button>
         </div>
       </div>
