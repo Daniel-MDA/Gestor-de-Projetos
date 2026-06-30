@@ -36,7 +36,7 @@ export default function GanttChart({ tarefas }: { tarefas: Tarefa[] }) {
 
   if (todasDatas.length === 0) {
     return (
-      <div className="bg-white border border-[#e6e2d6] rounded-xl p-6 text-center text-sm text-[#7c7a72]">
+      <div className="bg-white border border-[#e5e5ea] rounded-xl p-6 text-center text-sm text-[#8e8e9a]">
         Sem datas para exibir no Gantt.
       </div>
     );
@@ -75,14 +75,14 @@ export default function GanttChart({ tarefas }: { tarefas: Tarefa[] }) {
   const hojeVisible = hoje >= minDate && hoje <= maxDate;
 
   return (
-    <div className="bg-white border border-[#e6e2d6] rounded-xl p-4 overflow-x-auto">
+    <div className="bg-white border border-[#e5e5ea] rounded-xl p-4 overflow-x-auto">
       <div className="flex items-baseline gap-3 mb-3 px-1">
-        <span className="text-[10px] tracking-[0.12em] uppercase text-[#7c7a72] font-mono">
+        <span className="text-[10px] tracking-[0.12em] uppercase text-[#8e8e9a] font-mono">
           01
         </span>
         <h2
-          className="text-xl font-medium text-[#1a1815] tracking-tight"
-          style={{ fontFamily: "var(--font-fraunces), serif" }}
+          className="text-xl font-medium text-[#18182a] tracking-tight"
+          style={{ fontFamily: "var(--font-bricolage), serif" }}
         >
           Linha do tempo
         </h2>
@@ -104,7 +104,7 @@ export default function GanttChart({ tarefas }: { tarefas: Tarefa[] }) {
                 x2={x}
                 y1={padding}
                 y2={totalHeight - padding}
-                stroke="#e6e2d6"
+                stroke="#e5e5ea"
                 strokeWidth={1}
               />
               <text
@@ -112,7 +112,7 @@ export default function GanttChart({ tarefas }: { tarefas: Tarefa[] }) {
                 y={padding + 14}
                 fontFamily="var(--font-jetbrains-mono), monospace"
                 fontSize={10}
-                fill="#7c7a72"
+                fill="#8e8e9a"
               >
                 {`${monthNames[m.getMonth()]} ${m.getFullYear()}`}
               </text>
@@ -186,7 +186,7 @@ export default function GanttChart({ tarefas }: { tarefas: Tarefa[] }) {
                 fontSize={12}
                 fontWeight={500}
                 textAnchor="end"
-                fill="#1a1815"
+                fill="#18182a"
               >
                 {nome}
               </text>
@@ -220,7 +220,7 @@ export default function GanttChart({ tarefas }: { tarefas: Tarefa[] }) {
                 y={y + barH / 2 + 3.5}
                 fontFamily="var(--font-jetbrains-mono), monospace"
                 fontSize={9}
-                fill="#7c7a72"
+                fill="#8e8e9a"
               >
                 {`${fmtDataCurta(ini)} → ${fmtDataCurta(fim)}`}
               </text>

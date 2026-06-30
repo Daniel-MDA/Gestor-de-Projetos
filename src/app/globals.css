@@ -4,14 +4,26 @@
   --font-fraunces: ui-serif;
   --font-manrope: ui-sans-serif;
   --font-jetbrains-mono: ui-monospace;
+  --font-bricolage: ui-sans-serif;
 }
 
 html, body {
-  background: #f8f6f1;
-  color: #1a1815;
+  background: #f8f9fc;
+  color: #18182a;
 }
 
 /* Classes utilitárias pras fontes */
 .font-fraunces { font-family: var(--font-fraunces), serif; }
 .font-manrope { font-family: var(--font-manrope), sans-serif; }
 .font-mono { font-family: var(--font-jetbrains-mono), monospace; }
+.font-bricolage { font-family: var(--font-bricolage), sans-serif; }
+
+/* Fundo com grade sutil da marca Tecnofink (igual ao playbook) */
+.tf-grid-bg {
+  background-color: #f8f9fc;
+  background-image:
+    linear-gradient(rgba(12, 0, 89, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(12, 0, 89, 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+}

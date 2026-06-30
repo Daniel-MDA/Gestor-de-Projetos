@@ -43,10 +43,11 @@ export async function updateSession(request: NextRequest) {
     path.startsWith("/_next") ||
     path === "/favicon.ico";
 
-  // Não logado tentando acessar rota privada -> vai pro login
+  // Não logado tentando acessar rota privada -> vai pro login guardando o destino
   if (!user && !isPublicRoute) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
+    url.searchParams.set("next", path);
     return NextResponse.redirect(url);
   }
 

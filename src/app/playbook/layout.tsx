@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque } from "next/font/google";
 import "./playbook-theme.css";
 
-// Fonte de títulos do playbook (identidade da Fernanda). Manrope e JetBrains Mono
-// já são carregadas no layout raiz e ficam disponíveis como variáveis CSS.
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
-  subsets: ["latin"],
-  display: "swap",
-});
+// Bricolage Grotesque, Manrope e JetBrains Mono são carregadas no layout raiz
+// e ficam disponíveis como variáveis CSS.
 
 export const metadata: Metadata = {
   title: "Playbook 2026 — Tecnofink",
@@ -20,5 +14,5 @@ export default function PlaybookLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className={`${bricolage.variable} playbook-root`}>{children}</div>;
+  return <div className="playbook-root">{children}</div>;
 }

@@ -21,7 +21,7 @@ export default function PhasesRow({ tarefas }: { tarefas: Tarefa[] }) {
           <div
             key={fase}
             className={`
-              relative bg-white border border-[#e6e2d6] rounded-xl px-4 py-3.5
+              relative bg-white border border-[#e5e5ea] rounded-xl px-4 py-3.5
               transition-all hover:-translate-y-0.5 hover:shadow-sm
               ${isComplete ? "bg-gradient-to-b from-white to-[#f0faf3]" : ""}
             `}
@@ -39,34 +39,34 @@ export default function PhasesRow({ tarefas }: { tarefas: Tarefa[] }) {
             )}
 
             {/* Cabeçalho com número e nome */}
-            <div className="text-[10px] tracking-[0.1em] text-[#7c7a72] font-mono">
+            <div className="text-[10px] tracking-[0.1em] text-[#8e8e9a] font-mono">
               {num}
             </div>
             <div
-              className="text-sm font-medium leading-tight text-[#1a1815] mt-1 min-h-[2.6em]"
-              style={{ fontFamily: "var(--font-fraunces), serif" }}
+              className="text-sm font-medium leading-tight text-[#18182a] mt-1 min-h-[2.6em]"
+              style={{ fontFamily: "var(--font-bricolage), serif" }}
             >
               {nome}
             </div>
 
             {/* Data ocupando sua própria linha */}
-            <div className="mt-4 pt-3 border-t border-[#f3f0e8]">
-              <div className="text-[9px] tracking-[0.1em] uppercase text-[#7c7a72] font-mono mb-1">
+            <div className="mt-4 pt-3 border-t border-[#f1f2f7]">
+              <div className="text-[9px] tracking-[0.1em] uppercase text-[#8e8e9a] font-mono mb-1">
                 Prazo final
               </div>
-              <div className="text-base font-semibold tracking-tight text-[#1a1815] tabular-nums">
+              <div className="text-base font-semibold tracking-tight text-[#18182a] tabular-nums">
                 {fmtData(stats.prazoFinal)}
               </div>
             </div>
 
             {/* Progresso */}
-            <div className="h-[4px] bg-[#f3f0e8] rounded-full mt-3 overflow-hidden">
+            <div className="h-[4px] bg-[#f1f2f7] rounded-full mt-3 overflow-hidden">
               <div
-                className="h-full bg-[#1f4e79] transition-all"
+                className="h-full bg-[#0c0059] transition-all"
                 style={{ width: `${stats.pct}%` }}
               />
             </div>
-            <div className="flex justify-between text-[10px] text-[#7c7a72] font-mono mt-1.5 tabular-nums">
+            <div className="flex justify-between text-[10px] text-[#8e8e9a] font-mono mt-1.5 tabular-nums">
               <span>
                 {stats.concluidas}/{stats.total}
               </span>

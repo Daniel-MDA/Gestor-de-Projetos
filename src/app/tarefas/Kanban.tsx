@@ -42,10 +42,10 @@ type Coluna = {
 };
 
 const CORES_ETAPA = {
-  bg: "#fbfaf6",
-  bar: "#7c7a72",
-  fg: "#4b4942",
-  bgDragOver: "#e6e2d6",
+  bg: "#ffffff",
+  bar: "#8e8e9a",
+  fg: "#4a4a5a",
+  bgDragOver: "#e5e5ea",
 };
 
 type UndoStatus = {
@@ -412,25 +412,25 @@ export default function Kanban({
 
   return (
     <>
-      <div className="bg-white border border-[#e6e2d6] rounded-xl p-4">
+      <div className="bg-white border border-[#e5e5ea] rounded-xl p-4">
         <div className="flex items-center gap-3 mb-3 px-1 flex-wrap">
-          <span className="text-[10px] tracking-[0.12em] uppercase text-[#7c7a72] font-mono">
+          <span className="text-[10px] tracking-[0.12em] uppercase text-[#8e8e9a] font-mono">
             02
           </span>
           <h2
-            className="text-xl font-medium text-[#1a1815] tracking-tight"
-            style={{ fontFamily: "var(--font-fraunces), serif" }}
+            className="text-xl font-medium text-[#18182a] tracking-tight"
+            style={{ fontFamily: "var(--font-bricolage), serif" }}
           >
             Quadro de tarefas
           </h2>
 
-          <div className="flex items-center border border-[#d0ccbf] rounded-md overflow-hidden text-[11px]">
+          <div className="flex items-center border border-[#d4d4da] rounded-md overflow-hidden text-[11px]">
             <button
               onClick={() => setModo("status")}
               className={`flex items-center gap-1.5 px-2.5 py-1 transition-colors ${
                 ehStatus
-                  ? "bg-[#1f4e79] text-white"
-                  : "bg-white text-[#4b4942] hover:bg-[#fbfaf6]"
+                  ? "bg-[#0c0059] text-white"
+                  : "bg-white text-[#4a4a5a] hover:bg-[#ffffff]"
               }`}
               title="Agrupar por status"
             >
@@ -441,8 +441,8 @@ export default function Kanban({
               onClick={() => setModo("etapa")}
               className={`flex items-center gap-1.5 px-2.5 py-1 transition-colors ${
                 !ehStatus
-                  ? "bg-[#1f4e79] text-white"
-                  : "bg-white text-[#4b4942] hover:bg-[#fbfaf6]"
+                  ? "bg-[#0c0059] text-white"
+                  : "bg-white text-[#4a4a5a] hover:bg-[#ffffff]"
               }`}
               title="Agrupar por etapa"
             >
@@ -451,7 +451,7 @@ export default function Kanban({
             </button>
           </div>
 
-          <span className="text-[10px] text-[#7c7a72] font-mono ml-auto">
+          <span className="text-[10px] text-[#8e8e9a] font-mono ml-auto">
             {podeEdit
               ? `arraste cards para mover · clique para detalhes`
               : "somente leitura"}
@@ -459,7 +459,7 @@ export default function Kanban({
           {podeEdit && (
             <button
               onClick={() => setNovaAberta(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1 text-xs bg-[#1f4e79] hover:bg-[#1a1815] text-white rounded-md transition-colors shrink-0"
+              className="flex items-center gap-1.5 px-2.5 py-1 text-xs bg-[#0c0059] hover:bg-[#18182a] text-white rounded-md transition-colors shrink-0"
               title="Adicionar nova tarefa"
             >
               <Plus className="w-3.5 h-3.5" />
@@ -469,7 +469,7 @@ export default function Kanban({
         </div>
 
         {colunas.length === 0 ? (
-          <div className="text-center py-8 text-sm text-[#7c7a72]">
+          <div className="text-center py-8 text-sm text-[#8e8e9a]">
             Nenhuma etapa ainda. Crie uma tarefa para começar.
           </div>
         ) : ehStatus ? (
@@ -509,7 +509,7 @@ export default function Kanban({
       </div>
 
       {undoInfo && (
-        <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 bg-[#1a1815] text-white rounded-lg shadow-xl px-4 py-3 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-4 duration-300">
+        <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 bg-[#18182a] text-white rounded-lg shadow-xl px-4 py-3 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-4 duration-300">
           <span className="text-sm">Tarefa movida.</span>
           <button
             onClick={desfazer}
@@ -565,8 +565,8 @@ export default function Kanban({
           isDragOver
             ? ehStatus
               ? "bg-[#e6eef7] ring-2 ring-[#2e75b6]"
-              : "bg-[#e6e2d6] ring-2 ring-[#7c7a72]"
-            : "bg-[#fbfaf6]"
+              : "bg-[#e5e5ea] ring-2 ring-[#8e8e9a]"
+            : "bg-[#ffffff]"
         } ${desabilitado && draggingId ? "opacity-50" : ""}`}
       >
         <div
@@ -615,7 +615,7 @@ export default function Kanban({
         {items.length > ITEMS_POR_COLUNA && (
           <button
             onClick={() => alternarExpandir(c.id)}
-            className="w-full text-[11px] mt-2 py-1.5 text-[#4b4942] hover:bg-white rounded-md transition-colors font-medium"
+            className="w-full text-[11px] mt-2 py-1.5 text-[#4a4a5a] hover:bg-white rounded-md transition-colors font-medium"
           >
             {expandida
               ? "Mostrar menos"
@@ -657,25 +657,25 @@ function CardTarefa({
       onDragEnd={onDragEnd}
       onClick={onClick}
       className={`
-        bg-white border border-[#e6e2d6] rounded-md px-2.5 py-2 shadow-sm
+        bg-white border border-[#e5e5ea] rounded-md px-2.5 py-2 shadow-sm
         hover:-translate-y-px hover:shadow transition-all
         ${podeEdit ? "cursor-grab active:cursor-grabbing" : "cursor-pointer"}
         ${isDragging ? "opacity-40 scale-95 rotate-1" : ""}
       `}
       style={{ borderLeft: `3px solid ${cores.bar}` }}
     >
-      <div className="flex items-center justify-between gap-2 text-[9px] text-[#7c7a72] font-mono">
+      <div className="flex items-center justify-between gap-2 text-[9px] text-[#8e8e9a] font-mono">
         <span>
           {tarefa.codigo} · {num}
         </span>
       </div>
-      <div className="text-[12px] font-medium text-[#1a1815] mt-1 leading-snug">
+      <div className="text-[12px] font-medium text-[#18182a] mt-1 leading-snug">
         {tarefa.titulo}
       </div>
-      <div className="text-[10px] text-[#7c7a72] mt-1 truncate" title={respLabel}>
+      <div className="text-[10px] text-[#8e8e9a] mt-1 truncate" title={respLabel}>
         {respLabel}
       </div>
-      <div className="flex items-center justify-between mt-1.5 text-[10px] text-[#7c7a72]">
+      <div className="flex items-center justify-between mt-1.5 text-[10px] text-[#8e8e9a]">
         <span>{fmtData(tarefa.prazo)}</span>
         <span
           className="font-mono text-[9px] uppercase font-medium px-1.5 py-0.5 rounded"

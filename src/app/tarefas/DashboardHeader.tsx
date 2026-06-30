@@ -3,7 +3,6 @@
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { LogOut, Home } from "lucide-react";
 import { useState } from "react";
 import { Tarefa, calcularKPIs } from "@/lib/tarefas";
 import ProjectSelector from "./ProjectSelector";
@@ -34,7 +33,7 @@ export default function DashboardHeader({
     setLoading(true);
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push("/login");
+    router.push("/");
     router.refresh();
   }
 
@@ -43,17 +42,32 @@ export default function DashboardHeader({
   const offset = CIRCUMFERENCIA * (1 - progresso / 100);
 
   return (
-    <header className="bg-white border-b border-[#e6e2d6]">
+    <header className="bg-white/85 backdrop-blur border-b border-[#e5e5ea] sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
         <div className="flex items-center gap-5">
+          {/* Logo Tecnofink = botão para o início */}
+          <Link
+            href="/"
+            className="flex items-center gap-3 shrink-0"
+            title="Ir para o início"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/tecnofink-logo.png"
+              alt="Tecnofink"
+              className="h-6 w-auto"
+            />
+            <span className="text-[#d4d4da] text-xl leading-none">·</span>
+          </Link>
+
           <div>
-            <div className="text-[10px] tracking-[0.15em] uppercase text-[#7c7a72] font-mono">
-              Tecnofink · Projeto interno
+            <div className="text-[10px] tracking-[0.15em] uppercase text-[#8e8e9a] font-mono">
+              Gestor de Tarefas
             </div>
             <div className="flex items-center gap-1">
               <h1
-                className="text-2xl font-medium text-[#1a1815] tracking-tight mt-0.5"
-                style={{ fontFamily: "var(--font-fraunces), serif" }}
+                className="text-2xl font-medium text-[#18182a] tracking-tight mt-0.5"
+                style={{ fontFamily: "var(--font-bricolage), sans-serif" }}
               >
                 {projetoNome}
               </h1>
@@ -74,7 +88,7 @@ export default function DashboardHeader({
                 cy="32"
                 r={RAIO}
                 fill="none"
-                stroke="#f3f0e8"
+                stroke="#f1f2f7"
                 strokeWidth="6"
               />
               <circle
@@ -82,7 +96,7 @@ export default function DashboardHeader({
                 cy="32"
                 r={RAIO}
                 fill="none"
-                stroke="#1f4e79"
+                stroke="#0c0059"
                 strokeWidth="6"
                 strokeDasharray={CIRCUMFERENCIA}
                 strokeDashoffset={offset}
@@ -92,39 +106,30 @@ export default function DashboardHeader({
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
               <span
-                className="text-base font-medium text-[#1a1815] tracking-tight tabular-nums"
-                style={{ fontFamily: "var(--font-fraunces), serif" }}
+                className="text-base font-medium text-[#18182a] tracking-tight tabular-nums"
+                style={{ fontFamily: "var(--font-bricolage), sans-serif" }}
               >
                 {progresso}
-                <span className="text-[9px] text-[#7c7a72] ml-0.5">%</span>
+                <span className="text-[9px] text-[#8e8e9a] ml-0.5">%</span>
               </span>
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-4">
-          <Link
-            href="/"
-            className="flex items-center gap-2 px-3 py-2 text-sm text-[#4b4942] hover:bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg transition-colors"
-            title="Ir para o início"
-          >
-            <Home className="w-4 h-4" />
-            Início
-          </Link>
           <div className="text-right">
-            <div className="text-[10px] tracking-[0.12em] uppercase text-[#7c7a72] font-mono">
+            <div className="text-[10px] tracking-[0.12em] uppercase text-[#8e8e9a] font-mono">
               Logado como
             </div>
-            <div className="text-sm text-[#1a1815]">{userEmail}</div>
+            <div className="text-sm text-[#18182a]">{userEmail}</div>
           </div>
           <button
             onClick={handleLogout}
             disabled={loading}
-            className="flex items-center gap-2 px-3 py-2 text-sm text-[#4b4942] hover:bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg transition-colors disabled:opacity-50"
+            className="text-sm font-medium text-[#4a4a5a] hover:text-[#0c0059] border border-[#d4d4da] hover:border-[#0c0059] rounded-full px-4 py-2 transition-colors disabled:opacity-50"
             title="Sair"
           >
-            <LogOut className="w-4 h-4" />
-            Sair
+            {loading ? "Saindo…" : "Sair"}
           </button>
         </div>
       </div>

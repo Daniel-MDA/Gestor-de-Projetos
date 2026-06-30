@@ -198,12 +198,12 @@ export default function Comentarios({
     <div className="space-y-4">
       <div ref={scrollRef} className="max-h-[400px] overflow-y-auto pr-2 space-y-3">
         {carregando ? (
-          <div className="flex items-center justify-center py-6 text-sm text-[#7c7a72]">
+          <div className="flex items-center justify-center py-6 text-sm text-[#8e8e9a]">
             <Loader2 className="w-4 h-4 animate-spin mr-2" />
             Carregando comentários…
           </div>
         ) : comentarios.length === 0 ? (
-          <div className="text-center py-6 text-sm text-[#7c7a72]">
+          <div className="text-center py-6 text-sm text-[#8e8e9a]">
             Nenhum comentário ainda. Seja o primeiro a comentar.
           </div>
         ) : (
@@ -217,15 +217,15 @@ export default function Comentarios({
             return (
               <div
                 key={c.id}
-                className="bg-[#fbfaf6] border border-[#e6e2d6] rounded-lg p-3"
+                className="bg-[#ffffff] border border-[#e5e5ea] rounded-lg p-3"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-1.5">
                   <div className="flex items-baseline gap-2 min-w-0">
-                    <span className="text-xs font-medium text-[#1a1815] truncate">
+                    <span className="text-xs font-medium text-[#18182a] truncate">
                       {autor}
                     </span>
                     <span
-                      className="text-[10px] text-[#7c7a72] font-mono shrink-0"
+                      className="text-[10px] text-[#8e8e9a] font-mono shrink-0"
                       title={fmtDataHora(c.criado_em)}
                     >
                       {tempoRelativo(c.criado_em)}
@@ -243,7 +243,7 @@ export default function Comentarios({
                             setEditandoId(c.id);
                             setTextoEdicao(c.texto);
                           }}
-                          className="p-1 text-[#7c7a72] hover:text-[#1a1815] hover:bg-white rounded transition-colors"
+                          className="p-1 text-[#8e8e9a] hover:text-[#18182a] hover:bg-white rounded transition-colors"
                           title="Editar"
                         >
                           <Pencil className="w-3 h-3" />
@@ -252,7 +252,7 @@ export default function Comentarios({
                       {podeExcluirComentario && (
                         <button
                           onClick={() => excluir(c.id)}
-                          className="p-1 text-[#7c7a72] hover:text-[#8c2c1b] hover:bg-white rounded transition-colors"
+                          className="p-1 text-[#8e8e9a] hover:text-[#8c2c1b] hover:bg-white rounded transition-colors"
                           title="Excluir"
                         >
                           <Trash2 className="w-3 h-3" />
@@ -268,20 +268,20 @@ export default function Comentarios({
                       value={textoEdicao}
                       onChange={(e) => setTextoEdicao(e.target.value)}
                       rows={3}
-                      className="w-full p-2 text-sm bg-white border border-[#d0ccbf] rounded outline-none focus:border-[#1f4e79] resize-none"
+                      className="w-full p-2 text-sm bg-white border border-[#d4d4da] rounded outline-none focus:border-[#0c0059] resize-none"
                       autoFocus
                     />
                     <div className="flex justify-end gap-1 mt-1">
                       <button
                         onClick={() => setEditandoId(null)}
-                        className="flex items-center gap-1 text-xs px-2 py-1 text-[#4b4942] hover:bg-white rounded transition-colors"
+                        className="flex items-center gap-1 text-xs px-2 py-1 text-[#4a4a5a] hover:bg-white rounded transition-colors"
                       >
                         <X className="w-3 h-3" />
                         Cancelar
                       </button>
                       <button
                         onClick={() => salvarEdicao(c.id)}
-                        className="flex items-center gap-1 text-xs px-2 py-1 bg-[#1f4e79] hover:bg-[#1a1815] text-white rounded transition-colors"
+                        className="flex items-center gap-1 text-xs px-2 py-1 bg-[#0c0059] hover:bg-[#18182a] text-white rounded transition-colors"
                       >
                         <Check className="w-3 h-3" />
                         Salvar
@@ -304,7 +304,7 @@ export default function Comentarios({
       )}
 
       {podeEditar ? (
-        <div className="border-t border-[#e6e2d6] pt-4">
+        <div className="border-t border-[#e5e5ea] pt-4">
           <div className="flex gap-2">
             <textarea
               value={novoTexto}
@@ -317,13 +317,13 @@ export default function Comentarios({
               }}
               placeholder="Adicione um comentário... (Ctrl+Enter envia)"
               rows={2}
-              className="flex-1 p-2.5 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79] resize-none"
+              className="flex-1 p-2.5 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059] resize-none"
               disabled={enviando}
             />
             <button
               onClick={enviarNovo}
               disabled={enviando || !novoTexto.trim()}
-              className="self-end flex items-center gap-1.5 px-3 py-2 text-sm bg-[#1a1815] hover:bg-[#1f4e79] disabled:bg-[#7c7a72] disabled:cursor-not-allowed text-white rounded-lg transition-colors"
+              className="self-end flex items-center gap-1.5 px-3 py-2 text-sm bg-[#18182a] hover:bg-[#0c0059] disabled:bg-[#8e8e9a] disabled:cursor-not-allowed text-white rounded-lg transition-colors"
             >
               {enviando ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -335,7 +335,7 @@ export default function Comentarios({
           </div>
         </div>
       ) : (
-        <div className="border-t border-[#e6e2d6] pt-4 text-xs text-[#7c7a72] text-center">
+        <div className="border-t border-[#e5e5ea] pt-4 text-xs text-[#8e8e9a] text-center">
           Você não tem permissão para comentar neste projeto.
         </div>
       )}
@@ -360,7 +360,7 @@ function TextoComLinks({ texto }: { texto: string }) {
         href={match[1]}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-[#1f4e79] hover:underline break-all"
+        className="text-[#0c0059] hover:underline break-all"
       >
         {match[1]}
       </a>
@@ -373,7 +373,7 @@ function TextoComLinks({ texto }: { texto: string }) {
   }
 
   return (
-    <div className="text-sm text-[#1a1815] whitespace-pre-wrap break-words">
+    <div className="text-sm text-[#18182a] whitespace-pre-wrap break-words">
       {partes.length > 0 ? partes : texto}
     </div>
   );

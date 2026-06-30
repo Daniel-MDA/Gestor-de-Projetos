@@ -133,18 +133,18 @@ export default function NewTaskModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-white border-b border-[#e6e2d6] px-6 py-4 flex items-center justify-between rounded-t-2xl">
+        <div className="bg-white border-b border-[#e5e5ea] px-6 py-4 flex items-center justify-between rounded-t-2xl">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-full bg-[#e6eef7] flex items-center justify-center">
-              <Plus className="w-5 h-5 text-[#1f4e79]" />
+              <Plus className="w-5 h-5 text-[#0c0059]" />
             </div>
             <div>
-              <div className="text-[10px] tracking-[0.12em] uppercase text-[#7c7a72] font-mono">
+              <div className="text-[10px] tracking-[0.12em] uppercase text-[#8e8e9a] font-mono">
                 Nova
               </div>
               <h2
-                className="text-xl font-medium text-[#1a1815] tracking-tight"
-                style={{ fontFamily: "var(--font-fraunces), serif" }}
+                className="text-xl font-medium text-[#18182a] tracking-tight"
+                style={{ fontFamily: "var(--font-bricolage), serif" }}
               >
                 Adicionar tarefa
               </h2>
@@ -152,10 +152,10 @@ export default function NewTaskModal({
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-[#f3f0e8] rounded-lg transition-colors"
+            className="p-2 hover:bg-[#f1f2f7] rounded-lg transition-colors"
             title="Fechar (Esc)"
           >
-            <X className="w-5 h-5 text-[#4b4942]" />
+            <X className="w-5 h-5 text-[#4a4a5a]" />
           </button>
         </div>
 
@@ -168,7 +168,7 @@ export default function NewTaskModal({
               onChange={(e) => setTitulo(e.target.value)}
               autoFocus
               placeholder="Ex.: Configurar webhooks do Bitrix"
-              className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79]"
+              className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059]"
             />
           </Campo>
 
@@ -178,7 +178,7 @@ export default function NewTaskModal({
               onChange={(e) => setDescricao(e.target.value)}
               rows={3}
               placeholder="Detalhe a tarefa…"
-              className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79] resize-none"
+              className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059] resize-none"
             />
           </Campo>
 
@@ -187,7 +187,7 @@ export default function NewTaskModal({
               <select
                 value={etapaSelect}
                 onChange={(e) => setEtapaSelect(e.target.value)}
-                className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79]"
+                className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059]"
               >
                 {fasesExistentes.map((f) => (
                   <option key={f} value={f}>
@@ -202,7 +202,7 @@ export default function NewTaskModal({
                   value={etapaNova}
                   onChange={(e) => setEtapaNova(e.target.value)}
                   placeholder="Ex.: Etapa 8 - Pós go-live"
-                  className="w-full mt-2 px-3 py-2 text-sm bg-white border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79]"
+                  className="w-full mt-2 px-3 py-2 text-sm bg-white border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059]"
                 />
               )}
             </Campo>
@@ -211,7 +211,7 @@ export default function NewTaskModal({
               <select
                 value={responsavelId}
                 onChange={(e) => setResponsavelId(e.target.value)}
-                className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79]"
+                className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059]"
               >
                 <option value="">Selecione um membro…</option>
                 {membros.map((m) => (
@@ -221,7 +221,7 @@ export default function NewTaskModal({
                 ))}
               </select>
               {membros.length === 0 && (
-                <div className="mt-1.5 text-[10px] text-[#7c7a72]">
+                <div className="mt-1.5 text-[10px] text-[#8e8e9a]">
                   Nenhum membro no projeto. Adicione membros em Gerenciar
                   projeto.
                 </div>
@@ -239,7 +239,7 @@ export default function NewTaskModal({
                 value={dataInicio}
                 onChange={(e) => setDataInicio(e.target.value)}
                 placeholder="DD/MM/AAAA"
-                className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79] tabular-nums"
+                className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059] tabular-nums"
               />
             </Campo>
 
@@ -249,7 +249,7 @@ export default function NewTaskModal({
                 value={prazo}
                 onChange={(e) => setPrazo(e.target.value)}
                 placeholder="DD/MM/AAAA"
-                className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79] tabular-nums"
+                className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059] tabular-nums"
               />
             </Campo>
           </div>
@@ -258,7 +258,7 @@ export default function NewTaskModal({
             <select
               value={prioridade}
               onChange={(e) => setPrioridade(e.target.value as Prioridade)}
-              className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79]"
+              className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059]"
             >
               {PRIORIDADES.map((p) => (
                 <option key={p} value={p}>
@@ -268,7 +268,7 @@ export default function NewTaskModal({
             </select>
           </Campo>
 
-          <div className="text-xs text-[#7c7a72] bg-[#fbfaf6] border border-[#e6e2d6] rounded-lg px-3 py-2">
+          <div className="text-xs text-[#8e8e9a] bg-[#ffffff] border border-[#e5e5ea] rounded-lg px-3 py-2">
             A tarefa será criada com status <strong>Não iniciada</strong>. Para
             movê-la depois, arraste o card no kanban ou abra os detalhes.
           </div>
@@ -281,18 +281,18 @@ export default function NewTaskModal({
         </div>
 
         {/* Footer */}
-        <div className="bg-white border-t border-[#e6e2d6] px-6 py-4 flex justify-end gap-2 rounded-b-2xl">
+        <div className="bg-white border-t border-[#e5e5ea] px-6 py-4 flex justify-end gap-2 rounded-b-2xl">
           <button
             onClick={onClose}
             disabled={salvando}
-            className="px-4 py-2 text-sm text-[#4b4942] hover:bg-[#f3f0e8] rounded-lg transition-colors"
+            className="px-4 py-2 text-sm text-[#4a4a5a] hover:bg-[#f1f2f7] rounded-lg transition-colors"
           >
             Cancelar
           </button>
           <button
             onClick={handleSalvar}
             disabled={salvando || membros.length === 0}
-            className="flex items-center gap-2 px-4 py-2 text-sm bg-[#1a1815] hover:bg-[#1f4e79] disabled:bg-[#7c7a72] text-white rounded-lg transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-sm bg-[#18182a] hover:bg-[#0c0059] disabled:bg-[#8e8e9a] text-white rounded-lg transition-colors"
           >
             {salvando ? (
               <>
@@ -323,7 +323,7 @@ function Campo({
 }) {
   return (
     <div>
-      <label className="flex items-center gap-1.5 text-[10px] tracking-[0.12em] uppercase text-[#7c7a72] mb-1.5 font-mono">
+      <label className="flex items-center gap-1.5 text-[10px] tracking-[0.12em] uppercase text-[#8e8e9a] mb-1.5 font-mono">
         {icon}
         {label}
       </label>

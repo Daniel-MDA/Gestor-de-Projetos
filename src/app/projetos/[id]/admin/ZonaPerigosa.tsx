@@ -75,7 +75,7 @@ export default function ZonaPerigosa({ projetoId, projetoNome }: Props) {
           <AlertTriangle className="w-4 h-4 text-[#8c2c1b]" />
           <h2
             className="text-base font-medium text-[#8c2c1b]"
-            style={{ fontFamily: "var(--font-fraunces), serif" }}
+            style={{ fontFamily: "var(--font-bricolage), serif" }}
           >
             Zona perigosa
           </h2>
@@ -84,10 +84,10 @@ export default function ZonaPerigosa({ projetoId, projetoNome }: Props) {
         {/* Arquivar */}
         <div className="px-6 py-4 flex items-start justify-between gap-4 border-b border-[#f3c8be]">
           <div className="flex-1">
-            <div className="text-sm font-medium text-[#1a1815] mb-0.5">
+            <div className="text-sm font-medium text-[#18182a] mb-0.5">
               Arquivar projeto
             </div>
-            <div className="text-xs text-[#7c7a72]">
+            <div className="text-xs text-[#8e8e9a]">
               O projeto fica oculto do dashboard mas os dados permanecem no banco.
               Pode ser desarquivado depois pelo painel do Supabase.
             </div>
@@ -104,10 +104,10 @@ export default function ZonaPerigosa({ projetoId, projetoNome }: Props) {
         {/* Excluir */}
         <div className="px-6 py-4 flex items-start justify-between gap-4">
           <div className="flex-1">
-            <div className="text-sm font-medium text-[#1a1815] mb-0.5">
+            <div className="text-sm font-medium text-[#18182a] mb-0.5">
               Excluir permanentemente
             </div>
-            <div className="text-xs text-[#7c7a72]">
+            <div className="text-xs text-[#8e8e9a]">
               Remove o projeto, todas as tarefas, comentários e anexos. Esta ação
               não pode ser desfeita.
             </div>
@@ -129,8 +129,8 @@ export default function ZonaPerigosa({ projetoId, projetoNome }: Props) {
             <div className="flex items-center gap-2">
               <Archive className="w-5 h-5 text-[#8a5e0c]" />
               <h3
-                className="text-lg font-medium text-[#1a1815]"
-                style={{ fontFamily: "var(--font-fraunces), serif" }}
+                className="text-lg font-medium text-[#18182a]"
+                style={{ fontFamily: "var(--font-bricolage), serif" }}
               >
                 Arquivar projeto
               </h3>
@@ -138,18 +138,18 @@ export default function ZonaPerigosa({ projetoId, projetoNome }: Props) {
             <button
               onClick={fecharModal}
               disabled={carregando}
-              className="p-1 text-[#4b4942] hover:bg-[#f3f0e8] rounded transition-colors"
+              className="p-1 text-[#4a4a5a] hover:bg-[#f1f2f7] rounded transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          <p className="text-sm text-[#4b4942] mb-2">
+          <p className="text-sm text-[#4a4a5a] mb-2">
             O projeto{" "}
-            <strong className="text-[#1a1815]">{projetoNome}</strong> ficará
+            <strong className="text-[#18182a]">{projetoNome}</strong> ficará
             oculto do dashboard.
           </p>
-          <p className="text-xs text-[#7c7a72] mb-5">
+          <p className="text-xs text-[#8e8e9a] mb-5">
             Os dados ficam preservados e podem ser restaurados depois pelo painel
             do Supabase.
           </p>
@@ -164,14 +164,14 @@ export default function ZonaPerigosa({ projetoId, projetoNome }: Props) {
             <button
               onClick={fecharModal}
               disabled={carregando}
-              className="px-4 py-2 text-sm text-[#4b4942] hover:bg-[#f3f0e8] rounded-lg transition-colors"
+              className="px-4 py-2 text-sm text-[#4a4a5a] hover:bg-[#f1f2f7] rounded-lg transition-colors"
             >
               Cancelar
             </button>
             <button
               onClick={executarArquivar}
               disabled={carregando}
-              className="flex items-center gap-2 px-4 py-2 text-sm bg-[#d99b1f] hover:bg-[#8a5e0c] disabled:bg-[#7c7a72] text-white rounded-lg transition-colors"
+              className="flex items-center gap-2 px-4 py-2 text-sm bg-[#d99b1f] hover:bg-[#8a5e0c] disabled:bg-[#8e8e9a] text-white rounded-lg transition-colors"
             >
               {carregando ? (
                 <>
@@ -196,8 +196,8 @@ export default function ZonaPerigosa({ projetoId, projetoNome }: Props) {
             <div className="flex items-center gap-2">
               <AlertTriangle className="w-5 h-5 text-[#c64429]" />
               <h3
-                className="text-lg font-medium text-[#1a1815]"
-                style={{ fontFamily: "var(--font-fraunces), serif" }}
+                className="text-lg font-medium text-[#18182a]"
+                style={{ fontFamily: "var(--font-bricolage), serif" }}
               >
                 Excluir permanentemente
               </h3>
@@ -205,16 +205,16 @@ export default function ZonaPerigosa({ projetoId, projetoNome }: Props) {
             <button
               onClick={fecharModal}
               disabled={carregando}
-              className="p-1 text-[#4b4942] hover:bg-[#f3f0e8] rounded transition-colors"
+              className="p-1 text-[#4a4a5a] hover:bg-[#f1f2f7] rounded transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          <p className="text-sm text-[#4b4942] mb-3">
+          <p className="text-sm text-[#4a4a5a] mb-3">
             Esta ação <strong>não pode ser desfeita</strong>. Serão excluídos:
           </p>
-          <ul className="text-xs text-[#7c7a72] mb-4 space-y-0.5 pl-4 list-disc">
+          <ul className="text-xs text-[#8e8e9a] mb-4 space-y-0.5 pl-4 list-disc">
             <li>O projeto e todas as suas tarefas</li>
             <li>Todos os comentários nas tarefas</li>
             <li>Todos os anexos (incluindo arquivos no Storage)</li>
@@ -222,9 +222,9 @@ export default function ZonaPerigosa({ projetoId, projetoNome }: Props) {
           </ul>
 
           <div className="mb-4">
-            <label className="block text-xs text-[#4b4942] mb-1.5">
+            <label className="block text-xs text-[#4a4a5a] mb-1.5">
               Para confirmar, digite{" "}
-              <strong className="text-[#1a1815] font-mono">{projetoNome}</strong>{" "}
+              <strong className="text-[#18182a] font-mono">{projetoNome}</strong>{" "}
               abaixo:
             </label>
             <input
@@ -233,7 +233,7 @@ export default function ZonaPerigosa({ projetoId, projetoNome }: Props) {
               onChange={(e) => setNomeDigitado(e.target.value)}
               disabled={carregando}
               autoFocus
-              className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#c64429]"
+              className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#c64429]"
             />
           </div>
 
@@ -247,14 +247,14 @@ export default function ZonaPerigosa({ projetoId, projetoNome }: Props) {
             <button
               onClick={fecharModal}
               disabled={carregando}
-              className="px-4 py-2 text-sm text-[#4b4942] hover:bg-[#f3f0e8] rounded-lg transition-colors"
+              className="px-4 py-2 text-sm text-[#4a4a5a] hover:bg-[#f1f2f7] rounded-lg transition-colors"
             >
               Cancelar
             </button>
             <button
               onClick={executarExcluir}
               disabled={carregando || nomeDigitado.trim() !== projetoNome}
-              className="flex items-center gap-2 px-4 py-2 text-sm bg-[#c64429] hover:bg-[#8c2c1b] disabled:bg-[#7c7a72] disabled:cursor-not-allowed text-white rounded-lg transition-colors"
+              className="flex items-center gap-2 px-4 py-2 text-sm bg-[#c64429] hover:bg-[#8c2c1b] disabled:bg-[#8e8e9a] disabled:cursor-not-allowed text-white rounded-lg transition-colors"
             >
               {carregando ? (
                 <>

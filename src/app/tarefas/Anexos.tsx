@@ -203,8 +203,8 @@ export default function Anexos({
             border-2 border-dashed rounded-lg p-5 text-center cursor-pointer transition-colors
             ${
               dragOver
-                ? "border-[#1f4e79] bg-[#e6eef7]"
-                : "border-[#d0ccbf] bg-[#fbfaf6] hover:border-[#7c7a72]"
+                ? "border-[#0c0059] bg-[#e6eef7]"
+                : "border-[#d4d4da] bg-[#ffffff] hover:border-[#8e8e9a]"
             }
             ${enviando ? "pointer-events-none opacity-60" : ""}
           `}
@@ -218,17 +218,17 @@ export default function Anexos({
             disabled={enviando}
           />
           {enviando ? (
-            <div className="flex items-center justify-center gap-2 text-sm text-[#4b4942]">
+            <div className="flex items-center justify-center gap-2 text-sm text-[#4a4a5a]">
               <Loader2 className="w-4 h-4 animate-spin" />
               {progresso ?? "Enviando…"}
             </div>
           ) : (
             <>
-              <Upload className="w-6 h-6 text-[#7c7a72] mx-auto mb-1.5" />
-              <div className="text-sm text-[#4b4942]">
+              <Upload className="w-6 h-6 text-[#8e8e9a] mx-auto mb-1.5" />
+              <div className="text-sm text-[#4a4a5a]">
                 Clique ou arraste arquivos aqui
               </div>
-              <div className="text-[10px] text-[#7c7a72] mt-1 font-mono">
+              <div className="text-[10px] text-[#8e8e9a] mt-1 font-mono">
                 até {fmtTamanho(MAX_TAMANHO_BYTES)} por arquivo
               </div>
             </>
@@ -246,12 +246,12 @@ export default function Anexos({
       )}
 
       {carregando ? (
-        <div className="flex items-center justify-center py-6 text-sm text-[#7c7a72]">
+        <div className="flex items-center justify-center py-6 text-sm text-[#8e8e9a]">
           <Loader2 className="w-4 h-4 animate-spin mr-2" />
           Carregando anexos…
         </div>
       ) : anexos.length === 0 ? (
-        <div className="text-center py-6 text-sm text-[#7c7a72]">
+        <div className="text-center py-6 text-sm text-[#8e8e9a]">
           Nenhum anexo nesta tarefa.
         </div>
       ) : (
@@ -261,20 +261,20 @@ export default function Anexos({
             return (
               <div
                 key={a.id}
-                className="flex items-center gap-3 p-2.5 bg-[#fbfaf6] border border-[#e6e2d6] rounded-lg hover:bg-white transition-colors"
+                className="flex items-center gap-3 p-2.5 bg-[#ffffff] border border-[#e5e5ea] rounded-lg hover:bg-white transition-colors"
               >
                 <span className="text-xl shrink-0">{iconeArquivo(a.tipo_mime)}</span>
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm text-[#1a1815] font-medium truncate">
+                  <div className="text-sm text-[#18182a] font-medium truncate">
                     {a.nome_arquivo}
                   </div>
-                  <div className="text-[10px] text-[#7c7a72] font-mono mt-0.5">
+                  <div className="text-[10px] text-[#8e8e9a] font-mono mt-0.5">
                     {fmtTamanho(a.tamanho_bytes)} · {tempoRelativo(a.enviado_em)}
                   </div>
                 </div>
                 <button
                   onClick={() => baixarAnexo(a)}
-                  className="p-1.5 text-[#4b4942] hover:bg-[#e6eef7] hover:text-[#1f4e79] rounded transition-colors"
+                  className="p-1.5 text-[#4a4a5a] hover:bg-[#e6eef7] hover:text-[#0c0059] rounded transition-colors"
                   title="Baixar"
                 >
                   <Download className="w-4 h-4" />
@@ -282,7 +282,7 @@ export default function Anexos({
                 {podeExcluirAnexo && podeEditar && (
                   <button
                     onClick={() => excluir(a)}
-                    className="p-1.5 text-[#7c7a72] hover:bg-[#fcdcd6] hover:text-[#8c2c1b] rounded transition-colors"
+                    className="p-1.5 text-[#8e8e9a] hover:bg-[#fcdcd6] hover:text-[#8c2c1b] rounded transition-colors"
                     title="Excluir"
                   >
                     <Trash2 className="w-4 h-4" />

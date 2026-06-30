@@ -60,19 +60,19 @@ export default function OverduePopup({ tarefas, projetoId }: Props) {
         className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[80vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="px-6 pt-5 pb-4 border-b border-[#e6e2d6]">
+        <div className="px-6 pt-5 pb-4 border-b border-[#e5e5ea]">
           <div className="flex items-start justify-between mb-2">
             <div className="flex items-center gap-2.5">
               <div className="w-10 h-10 rounded-full bg-[#fcdcd6] flex items-center justify-center">
                 <AlertCircle className="w-5 h-5 text-[#c64429]" />
               </div>
               <div>
-                <div className="text-[10px] tracking-[0.12em] uppercase text-[#7c7a72] font-mono">
+                <div className="text-[10px] tracking-[0.12em] uppercase text-[#8e8e9a] font-mono">
                   Atenção
                 </div>
                 <h2
-                  className="text-xl font-medium text-[#1a1815] tracking-tight"
-                  style={{ fontFamily: "var(--font-fraunces), serif" }}
+                  className="text-xl font-medium text-[#18182a] tracking-tight"
+                  style={{ fontFamily: "var(--font-bricolage), serif" }}
                 >
                   {atrasadas.length}{" "}
                   {atrasadas.length === 1
@@ -83,13 +83,13 @@ export default function OverduePopup({ tarefas, projetoId }: Props) {
             </div>
             <button
               onClick={fechar}
-              className="p-2 hover:bg-[#f3f0e8] rounded-lg transition-colors"
+              className="p-2 hover:bg-[#f1f2f7] rounded-lg transition-colors"
               title="Fechar"
             >
-              <X className="w-5 h-5 text-[#4b4942]" />
+              <X className="w-5 h-5 text-[#4a4a5a]" />
             </button>
           </div>
-          <p className="text-sm text-[#7c7a72] mt-2">
+          <p className="text-sm text-[#8e8e9a] mt-2">
             As tarefas abaixo estão com prazo vencido. Considere atualizar o
             status ou ajustar prazos.
           </p>
@@ -109,12 +109,12 @@ export default function OverduePopup({ tarefas, projetoId }: Props) {
                       {t.codigo} · {num}
                     </span>
                   </div>
-                  <div className="text-sm font-medium text-[#1a1815] mt-0.5">
+                  <div className="text-sm font-medium text-[#18182a] mt-0.5">
                     {t.titulo}
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <div className="text-[10px] text-[#7c7a72] font-mono uppercase tracking-wide">
+                  <div className="text-[10px] text-[#8e8e9a] font-mono uppercase tracking-wide">
                     Prazo
                   </div>
                   <div className="text-sm font-semibold text-[#8c2c1b] tabular-nums">
@@ -126,16 +126,16 @@ export default function OverduePopup({ tarefas, projetoId }: Props) {
           })}
         </div>
 
-        <div className="px-6 py-4 border-t border-[#e6e2d6] flex justify-end gap-2">
+        <div className="px-6 py-4 border-t border-[#e5e5ea] flex justify-end gap-2">
           <button
             onClick={fecharENaoMostrarHoje}
-            className="px-4 py-2 text-sm text-[#4b4942] hover:bg-[#f3f0e8] rounded-lg transition-colors"
+            className="px-4 py-2 text-sm text-[#4a4a5a] hover:bg-[#f1f2f7] rounded-lg transition-colors"
           >
             Não mostrar de novo hoje
           </button>
           <button
             onClick={fechar}
-            className="px-4 py-2 text-sm bg-[#1a1815] hover:bg-[#1f4e79] text-white rounded-lg transition-colors"
+            className="px-4 py-2 text-sm bg-[#18182a] hover:bg-[#0c0059] text-white rounded-lg transition-colors"
           >
             Ver tarefas
           </button>

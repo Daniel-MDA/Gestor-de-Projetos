@@ -38,24 +38,24 @@ export default async function AdminProjetoPage({
 
   if (meuPapel !== "admin") {
     return (
-      <main className="min-h-screen bg-[#f8f6f1] py-10 px-6">
+      <main className="min-h-screen bg-[#f8f9fc] py-10 px-6">
         <div className="max-w-xl mx-auto">
           <Link
             href="/tarefas"
-            className="inline-flex items-center gap-1.5 text-sm text-[#7c7a72] hover:text-[#1a1815] mb-6 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-[#8e8e9a] hover:text-[#18182a] mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Voltar às tarefas
           </Link>
-          <div className="bg-white border border-[#e6e2d6] rounded-2xl p-8 text-center">
+          <div className="bg-white border border-[#e5e5ea] rounded-2xl p-8 text-center">
             <ShieldAlert className="w-12 h-12 text-[#c64429] mx-auto mb-3" />
             <h1
-              className="text-xl font-medium text-[#1a1815] mb-2"
-              style={{ fontFamily: "var(--font-fraunces), serif" }}
+              className="text-xl font-medium text-[#18182a] mb-2"
+              style={{ fontFamily: "var(--font-bricolage), serif" }}
             >
               Acesso restrito
             </h1>
-            <p className="text-sm text-[#7c7a72]">
+            <p className="text-sm text-[#8e8e9a]">
               Apenas administradores deste projeto podem gerenciar membros.
             </p>
           </div>
@@ -101,28 +101,28 @@ export default async function AdminProjetoPage({
   const projetoTyped = projeto as Projeto;
 
   return (
-    <main className="min-h-screen bg-[#f8f6f1] py-10 px-6">
+    <main className="min-h-screen bg-[#f8f9fc] py-10 px-6">
       <div className="max-w-3xl mx-auto">
         <Link
           href="/tarefas"
-          className="inline-flex items-center gap-1.5 text-sm text-[#7c7a72] hover:text-[#1a1815] mb-6 transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm text-[#8e8e9a] hover:text-[#18182a] mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Voltar ao dashboard
         </Link>
 
         <div className="mb-6">
-          <div className="text-[10px] tracking-[0.15em] uppercase text-[#7c7a72] font-mono mb-1">
+          <div className="text-[10px] tracking-[0.15em] uppercase text-[#8e8e9a] font-mono mb-1">
             Administrar projeto
           </div>
           <h1
-            className="text-3xl font-medium text-[#1a1815] tracking-tight"
-            style={{ fontFamily: "var(--font-fraunces), serif" }}
+            className="text-3xl font-medium text-[#18182a] tracking-tight"
+            style={{ fontFamily: "var(--font-bricolage), serif" }}
           >
             {projetoTyped.nome}
           </h1>
           {projetoTyped.descricao && (
-            <p className="text-sm text-[#7c7a72] mt-2">
+            <p className="text-sm text-[#8e8e9a] mt-2">
               {projetoTyped.descricao}
             </p>
           )}

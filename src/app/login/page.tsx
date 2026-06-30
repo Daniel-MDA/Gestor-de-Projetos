@@ -1,10 +1,15 @@
 import LoginForm from "./LoginForm";
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
+  const { next } = await searchParams;
   return (
-    <main className="min-h-screen flex items-center justify-center p-6 bg-[#f8f6f1]">
+    <main className="min-h-screen flex items-center justify-center p-6 tf-grid-bg">
       <div className="w-full max-w-md">
-        <LoginForm />
+        <LoginForm next={next} />
       </div>
     </main>
   );

@@ -62,20 +62,20 @@ export default async function DashboardPage() {
 
   if (todosProjetos.length === 0) {
     return (
-      <main className="min-h-screen bg-[#f8f6f1] flex items-center justify-center p-8">
-        <div className="max-w-md text-center bg-white border border-[#e6e2d6] rounded-2xl p-8">
+      <main className="min-h-screen tf-grid-bg flex items-center justify-center p-8">
+        <div className="max-w-md text-center bg-white border border-[#e5e5ea] rounded-2xl p-8">
           <div
-            className="text-xl font-medium text-[#1a1815] mb-2"
-            style={{ fontFamily: "var(--font-fraunces), serif" }}
+            className="text-xl font-medium text-[#18182a] mb-2"
+            style={{ fontFamily: "var(--font-bricolage), serif" }}
           >
             Nenhum projeto ainda
           </div>
-          <p className="text-sm text-[#7c7a72] mb-5">
+          <p className="text-sm text-[#8e8e9a] mb-5">
             Você ainda não participa de nenhum projeto. Crie um para começar.
           </p>
           <Link
             href="/projetos/novo"
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-sm bg-[#1a1815] hover:bg-[#1f4e79] text-white rounded-lg transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-sm bg-[#18182a] hover:bg-[#0c0059] text-white rounded-lg transition-colors"
           >
             Criar projeto
           </Link>
@@ -120,7 +120,7 @@ export default async function DashboardPage() {
   const membros = (membrosData as MembroAtribuicao[] | null) ?? [];
 
   return (
-    <main className="min-h-screen bg-[#f8f6f1]">
+    <main className="min-h-screen tf-grid-bg">
       <DashboardHeader
         userEmail={user.email!}
         projetoNome={projetoAtivo.nome}

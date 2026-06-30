@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Manrope, JetBrains_Mono } from "next/font/google";
+import { Fraunces, Manrope, JetBrains_Mono, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -20,6 +20,13 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+// Fonte de títulos da marca Tecnofink (mesma do playbook).
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Tecnofink CRM",
   description: "Sistema de gestão de projetos da Tecnofink",
@@ -33,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-  className={`${manrope.variable} ${fraunces.variable} ${jetbrainsMono.variable} antialiased`}
+  className={`${manrope.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${bricolage.variable} antialiased`}
   style={{ fontFamily: "var(--font-manrope), system-ui, sans-serif" }}
   suppressHydrationWarning
 >

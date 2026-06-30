@@ -42,18 +42,18 @@ export default function RedefinirSenhaPage() {
   }
  
   return (
-    <main className="min-h-screen bg-[#f8f6f1] flex items-center justify-center p-6">
-      <div className="w-full max-w-md bg-white border border-[#e6e2d6] rounded-2xl p-8 shadow-sm">
-        <p className="text-[10px] tracking-[0.12em] uppercase text-[#7c7a72] font-mono mb-2">
+    <main className="min-h-screen bg-[#f8f9fc] flex items-center justify-center p-6">
+      <div className="w-full max-w-md bg-white border border-[#e5e5ea] rounded-2xl p-8 shadow-sm">
+        <p className="text-[10px] tracking-[0.12em] uppercase text-[#8e8e9a] font-mono mb-2">
           Tecnofink · Sistema interno
         </p>
         <h1
-          className="text-3xl font-medium text-[#1a1815] tracking-tight mb-1"
-          style={{ fontFamily: "var(--font-fraunces), serif" }}
+          className="text-3xl font-medium text-[#18182a] tracking-tight mb-1"
+          style={{ fontFamily: "var(--font-bricolage), serif" }}
         >
-          Redefinir <em className="italic text-[#1f4e79]">senha</em>
+          Redefinir <em className="italic text-[#0c0059]">senha</em>
         </h1>
-        <p className="text-sm text-[#7c7a72] mb-6">
+        <p className="text-sm text-[#8e8e9a] mb-6">
           Escolha uma nova senha para sua conta.
         </p>
  
@@ -65,34 +65,34 @@ export default function RedefinirSenhaPage() {
         ) : (
           <div className="space-y-4">
             <div>
-              <label className="block text-[10px] tracking-[0.08em] uppercase text-[#7c7a72] font-mono mb-1.5">
+              <label className="block text-[10px] tracking-[0.08em] uppercase text-[#8e8e9a] font-mono mb-1.5">
                 Nova senha
               </label>
-              <div className="flex items-center gap-2 bg-[#fbfaf6] border border-[#e6e2d6] rounded-lg px-3 py-2.5 focus-within:border-[#1f4e79] transition-colors">
-                <Lock className="w-4 h-4 text-[#7c7a72] shrink-0" />
+              <div className="flex items-center gap-2 bg-[#ffffff] border border-[#e5e5ea] rounded-lg px-3 py-2.5 focus-within:border-[#0c0059] transition-colors">
+                <Lock className="w-4 h-4 text-[#8e8e9a] shrink-0" />
                 <input
                   type="password"
                   value={senha}
                   onChange={(e) => setSenha(e.target.value)}
                   placeholder="Mínimo 8 caracteres"
-                  className="bg-transparent outline-none text-sm text-[#1a1815] w-full"
+                  className="bg-transparent outline-none text-sm text-[#18182a] w-full"
                   autoFocus
                 />
               </div>
             </div>
  
             <div>
-              <label className="block text-[10px] tracking-[0.08em] uppercase text-[#7c7a72] font-mono mb-1.5">
+              <label className="block text-[10px] tracking-[0.08em] uppercase text-[#8e8e9a] font-mono mb-1.5">
                 Confirmar nova senha
               </label>
-              <div className="flex items-center gap-2 bg-[#fbfaf6] border border-[#e6e2d6] rounded-lg px-3 py-2.5 focus-within:border-[#1f4e79] transition-colors">
-                <Lock className="w-4 h-4 text-[#7c7a72] shrink-0" />
+              <div className="flex items-center gap-2 bg-[#ffffff] border border-[#e5e5ea] rounded-lg px-3 py-2.5 focus-within:border-[#0c0059] transition-colors">
+                <Lock className="w-4 h-4 text-[#8e8e9a] shrink-0" />
                 <input
                   type="password"
                   value={confirma}
                   onChange={(e) => setConfirma(e.target.value)}
                   placeholder="Digite novamente"
-                  className="bg-transparent outline-none text-sm text-[#1a1815] w-full"
+                  className="bg-transparent outline-none text-sm text-[#18182a] w-full"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleSubmit();
                   }}
@@ -109,7 +109,7 @@ export default function RedefinirSenhaPage() {
             <button
               onClick={handleSubmit}
               disabled={salvando}
-              className="w-full bg-[#1a1815] hover:bg-[#1f4e79] disabled:opacity-50 text-white rounded-lg py-3 text-sm font-medium transition-colors"
+              className="w-full bg-[#18182a] hover:bg-[#0c0059] disabled:opacity-50 text-white rounded-lg py-3 text-sm font-medium transition-colors"
             >
               {salvando ? "Salvando…" : "Redefinir senha"}
             </button>

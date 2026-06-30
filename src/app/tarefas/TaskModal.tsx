@@ -217,7 +217,7 @@ export default function TaskModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-white border-b border-[#e6e2d6] px-6 py-4 rounded-t-2xl">
+        <div className="bg-white border-b border-[#e5e5ea] px-6 py-4 rounded-t-2xl">
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-center gap-3 min-w-0">
               <span
@@ -226,12 +226,12 @@ export default function TaskModal({
               >
                 {statusEf}
               </span>
-              <span className="text-xs text-[#7c7a72] font-mono shrink-0">
+              <span className="text-xs text-[#8e8e9a] font-mono shrink-0">
                 {tarefa.codigo}
               </span>
               <h2
-                className="text-lg font-medium text-[#1a1815] tracking-tight truncate"
-                style={{ fontFamily: "var(--font-fraunces), serif" }}
+                className="text-lg font-medium text-[#18182a] tracking-tight truncate"
+                style={{ fontFamily: "var(--font-bricolage), serif" }}
                 title={tarefa.titulo}
               >
                 {tarefa.titulo}
@@ -240,10 +240,10 @@ export default function TaskModal({
             <button
               onClick={() => !desabilitarFechar && onClose()}
               disabled={desabilitarFechar}
-              className="p-2 hover:bg-[#f3f0e8] rounded-lg transition-colors shrink-0"
+              className="p-2 hover:bg-[#f1f2f7] rounded-lg transition-colors shrink-0"
               title="Fechar (Esc)"
             >
-              <X className="w-5 h-5 text-[#4b4942]" />
+              <X className="w-5 h-5 text-[#4a4a5a]" />
             </button>
           </div>
 
@@ -283,7 +283,7 @@ export default function TaskModal({
                   value={titulo}
                   onChange={(e) => setTitulo(e.target.value)}
                   disabled={!podeEditar}
-                  className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79] disabled:opacity-60"
+                  className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059] disabled:opacity-60"
                 />
               </Campo>
 
@@ -293,7 +293,7 @@ export default function TaskModal({
                   onChange={(e) => setDescricao(e.target.value)}
                   disabled={!podeEditar}
                   rows={4}
-                  className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79] disabled:opacity-60 resize-none"
+                  className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059] disabled:opacity-60 resize-none"
                 />
               </Campo>
 
@@ -304,7 +304,7 @@ export default function TaskModal({
                     value={etapa}
                     onChange={(e) => setEtapa(e.target.value)}
                     disabled={!podeEditar}
-                    className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79] disabled:opacity-60"
+                    className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059] disabled:opacity-60"
                   />
                 </Campo>
 
@@ -316,7 +316,7 @@ export default function TaskModal({
                     value={respMembroExiste ? responsavel : ""}
                     onChange={(e) => setResponsavel(e.target.value)}
                     disabled={!podeEditar}
-                    className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79] disabled:opacity-60"
+                    className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059] disabled:opacity-60"
                   >
                     <option value="">Selecione…</option>
                     {membros.map((m) => (
@@ -346,7 +346,7 @@ export default function TaskModal({
                     onChange={(e) => setDataInicio(e.target.value)}
                     disabled={!podeEditar}
                     placeholder="DD/MM/AAAA"
-                    className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79] disabled:opacity-60 tabular-nums"
+                    className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059] disabled:opacity-60 tabular-nums"
                   />
                 </Campo>
 
@@ -357,7 +357,7 @@ export default function TaskModal({
                     onChange={(e) => setPrazo(e.target.value)}
                     disabled={!podeEditar}
                     placeholder="DD/MM/AAAA"
-                    className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79] disabled:opacity-60 tabular-nums"
+                    className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059] disabled:opacity-60 tabular-nums"
                   />
                 </Campo>
 
@@ -368,7 +368,7 @@ export default function TaskModal({
                       setPrioridade(e.target.value as Prioridade)
                     }
                     disabled={!podeEditar}
-                    className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79] disabled:opacity-60"
+                    className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059] disabled:opacity-60"
                   >
                     {PRIORIDADES.map((p) => (
                       <option key={p} value={p}>
@@ -386,7 +386,7 @@ export default function TaskModal({
                     setStatus(e.target.value as StatusEfetivo)
                   }
                   disabled={!podeEditar}
-                  className="w-full px-3 py-2 text-sm bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg outline-none focus:border-[#1f4e79] disabled:opacity-60"
+                  className="w-full px-3 py-2 text-sm bg-[#ffffff] border border-[#d4d4da] rounded-lg outline-none focus:border-[#0c0059] disabled:opacity-60"
                 >
                   {STATUSES_SELECIONAVEIS.map((s) => (
                     <option key={s} value={s}>
@@ -394,14 +394,14 @@ export default function TaskModal({
                     </option>
                   ))}
                 </select>
-                <div className="mt-1 text-[10px] text-[#7c7a72]">
+                <div className="mt-1 text-[10px] text-[#8e8e9a]">
                   &quot;Atrasada&quot; é calculada automaticamente quando o prazo
                   vence.
                 </div>
               </Campo>
 
               {tarefa.data_conclusao && (
-                <div className="text-xs text-[#7c7a72]">
+                <div className="text-xs text-[#8e8e9a]">
                   Concluída em{" "}
                   {new Date(tarefa.data_conclusao).toLocaleDateString("pt-BR")}
                 </div>
@@ -437,7 +437,7 @@ export default function TaskModal({
 
         {/* Footer (só na aba detalhes) */}
         {aba === "detalhes" && podeEditar && (
-          <div className="bg-white border-t border-[#e6e2d6] px-6 py-4 flex justify-between items-center gap-2 rounded-b-2xl">
+          <div className="bg-white border-t border-[#e5e5ea] px-6 py-4 flex justify-between items-center gap-2 rounded-b-2xl">
             <div>
               {podeExcluir && (
                 <button
@@ -464,14 +464,14 @@ export default function TaskModal({
               <button
                 onClick={() => !desabilitarFechar && onClose()}
                 disabled={desabilitarFechar}
-                className="px-4 py-2 text-sm text-[#4b4942] hover:bg-[#f3f0e8] rounded-lg transition-colors"
+                className="px-4 py-2 text-sm text-[#4a4a5a] hover:bg-[#f1f2f7] rounded-lg transition-colors"
               >
                 Cancelar
               </button>
               <button
                 onClick={handleSalvar}
                 disabled={salvando || excluindo}
-                className="flex items-center gap-2 px-4 py-2 text-sm bg-[#1a1815] hover:bg-[#1f4e79] disabled:bg-[#7c7a72] text-white rounded-lg transition-colors"
+                className="flex items-center gap-2 px-4 py-2 text-sm bg-[#18182a] hover:bg-[#0c0059] disabled:bg-[#8e8e9a] text-white rounded-lg transition-colors"
               >
                 {salvando ? (
                   <>
@@ -509,8 +509,8 @@ function TabBtn({
       onClick={onClick}
       className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium border-b-2 transition-colors ${
         ativa
-          ? "border-[#1f4e79] text-[#1f4e79]"
-          : "border-transparent text-[#7c7a72] hover:text-[#1a1815] hover:bg-[#f3f0e8]"
+          ? "border-[#0c0059] text-[#0c0059]"
+          : "border-transparent text-[#8e8e9a] hover:text-[#18182a] hover:bg-[#f1f2f7]"
       }`}
     >
       {icon}
@@ -530,7 +530,7 @@ function Campo({
 }) {
   return (
     <div>
-      <label className="flex items-center gap-1.5 text-[10px] tracking-[0.12em] uppercase text-[#7c7a72] mb-1.5 font-mono">
+      <label className="flex items-center gap-1.5 text-[10px] tracking-[0.12em] uppercase text-[#8e8e9a] mb-1.5 font-mono">
         {icon}
         {label}
       </label>

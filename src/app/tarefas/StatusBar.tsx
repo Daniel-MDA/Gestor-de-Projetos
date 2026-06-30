@@ -26,9 +26,9 @@ export default function StatusBar({ tarefas }: { tarefas: Tarefa[] }) {
   ];
 
   return (
-    <div className="bg-white border border-[#e6e2d6] rounded-xl p-4">
+    <div className="bg-white border border-[#e5e5ea] rounded-xl p-4">
       {/* Barra principal */}
-      <div className="h-7 rounded-md overflow-hidden flex bg-[#f3f0e8]">
+      <div className="h-7 rounded-md overflow-hidden flex bg-[#f1f2f7]">
         {segments.map((seg) => {
           const pct = total > 0 ? (seg.count / total) * 100 : 0;
           if (pct === 0) return null;
@@ -62,10 +62,10 @@ export default function StatusBar({ tarefas }: { tarefas: Tarefa[] }) {
                 className="w-2.5 h-2.5 rounded-sm flex-shrink-0"
                 style={{ background: seg.bg }}
               />
-              <span className="text-xs text-[#4b4942]">
-                <span className="font-medium text-[#1a1815]">{seg.label}:</span>{" "}
+              <span className="text-xs text-[#4a4a5a]">
+                <span className="font-medium text-[#18182a]">{seg.label}:</span>{" "}
                 <span className="tabular-nums">{seg.count}</span>{" "}
-                <span className="text-[#7c7a72]">({pct}%)</span>
+                <span className="text-[#8e8e9a]">({pct}%)</span>
               </span>
             </div>
           );
