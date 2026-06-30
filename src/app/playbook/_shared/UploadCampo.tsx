@@ -2,14 +2,14 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 import { nomeSeguro } from "./storage";
+import { subirArquivo, removerArquivo, urlAssinada } from "./uploadAcao";
 
 export type ResultadoUpload = { status: string; mensagem?: string };
 
-// Campo reutilizável de anexo: faz upload para o Storage (cliente autenticado),
-// salva o caminho via Server Action, e abre via URL pública (bucket público)
-// ou URL assinada (bucket privado). Editor pode enviar/remover; demais só veem.
+// Campo reutilizável de anexo. O upload/remoção/URL-assinada passam por Server
+// Actions (cliente server autenticado via cookies) — o cliente do navegador não
+// leva a sessão ao Storage de forma confiável. Leitura pública = URL direta.
 export default function UploadCampo({
   bucket,
   pathPrefix,
@@ -32,41 +32,46 @@ export default function UploadCampo({
   onRemover: () => Promise<ResultadoUpload>;
 }) {
   const router = useRouter();
-  const supabase = createClient();
   const [busy, setBusy] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const [, startTransition] = useTransition();
 
+  function urlPublica(path: string) {
+    const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const enc = path.split("/").map(encodeURIComponent).join("/");
+    return `${base}/storage/v1/object/public/${bucket}/${enc}`;
+  }
+
   async function abrir() {
     if (!storagePath) return;
     if (publico) {
-      const { data } = supabase.storage.from(bucket).getPublicUrl(storagePath);
-      window.open(data.publicUrl, "_blank", "noopener");
+      window.open(urlPublica(storagePath), "_blank", "noopener");
       return;
     }
-    const { data, error } = await supabase.storage
-      .from(bucket)
-      .createSignedUrl(storagePath, 3600);
-    if (error || !data) {
-      setErro("Não foi possível abrir o arquivo.");
-      return;
-    }
-    window.open(data.signedUrl, "_blank", "noopener");
+    const r = await urlAssinada(bucket, storagePath);
+    if (r.status === "ok" && r.url) window.open(r.url, "_blank", "noopener");
+    else setErro("Não foi possível abrir o arquivo.");
   }
 
   async function enviar(file: File) {
     setErro(null);
     setBusy(true);
     const path = `${pathPrefix}/${Date.now()}_${nomeSeguro(file.name)}`;
-    const { error } = await supabase.storage
-      .from(bucket)
-      .upload(path, file, { upsert: true });
-    if (error) {
+    const fd = new FormData();
+    fd.set("file", file);
+    fd.set("bucket", bucket);
+    fd.set("path", path);
+    const up = await subirArquivo(fd);
+    if (up.status !== "ok" || !up.storagePath) {
       setBusy(false);
-      setErro("Falha no upload: " + error.message);
+      setErro(
+        up.status === "nao_autenticado"
+          ? "Sua sessão expirou. Entre novamente."
+          : up.mensagem ?? "Falha no upload."
+      );
       return;
     }
-    const r = await onSalvar(path, file.name);
+    const r = await onSalvar(up.storagePath, file.name);
     setBusy(false);
     if (r.status === "ok") startTransition(() => router.refresh());
     else setErro(r.mensagem ?? "Falha ao salvar o anexo.");
@@ -76,7 +81,7 @@ export default function UploadCampo({
     if (!storagePath) return;
     setErro(null);
     setBusy(true);
-    await supabase.storage.from(bucket).remove([storagePath]);
+    await removerArquivo(bucket, storagePath);
     const r = await onRemover();
     setBusy(false);
     if (r.status === "ok") startTransition(() => router.refresh());
