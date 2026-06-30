@@ -3,35 +3,38 @@
 import { createClient } from "@/lib/supabase/server";
 
 export type ResultadoUpload = {
-  status: "ok" | "nao_autenticado" | "erro";
+  status: "ok" | "nao_autenticado" | "nao_autorizado" | "erro";
   mensagem?: string;
   storagePath?: string;
   url?: string;
 };
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const SERVICE = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 function encodePath(path: string) {
   return path.split("/").map(encodeURIComponent).join("/");
 }
 
-async function tokenDoUsuario() {
+// Verifica, usando a SESSÃO do usuário, se ele é editor do playbook. A RPC
+// is_playbook_editor() funciona de forma confiável no server client (é o que
+// alimenta o "MODO EDITOR"). Só depois disso usamos a service_role para o
+// upload, que ignora o RLS do Storage (o supabase-js/token de sessão não
+// funciona em bucket público — ver histórico).
+async function exigirEditor(): Promise<ResultadoUpload | null> {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { token: null as string | null };
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  return { token: session?.access_token ?? null };
+  if (!user) return { status: "nao_autenticado" };
+  const { data, error } = await supabase.rpc("is_playbook_editor");
+  if (error)
+    return { status: "erro", mensagem: "Falha ao verificar permissão: " + error.message };
+  if (data !== true)
+    return { status: "nao_autorizado", mensagem: "Você não tem permissão de editor." };
+  return null;
 }
 
-// Upload via REST com o Bearer token do usuário. NÃO usar o supabase-js storage
-// client aqui: para buckets PÚBLICOS ele faz a requisição como anônimo, então o
-// auth.uid() fica nulo e o RLS de escrita (is_playbook_editor()) bloqueia. O
-// fetch autenticado funciona em buckets públicos e privados.
 export async function subirArquivo(formData: FormData): Promise<ResultadoUpload> {
   const file = formData.get("file");
   const bucket = formData.get("bucket");
@@ -39,26 +42,10 @@ export async function subirArquivo(formData: FormData): Promise<ResultadoUpload>
   if (!(file instanceof File) || typeof bucket !== "string" || typeof path !== "string") {
     return { status: "erro", mensagem: "Dados de upload incompletos." };
   }
-
-  // ===== DEBUG temporário: coleta fatos e devolve no erro =====
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  const { data: { session } } = await supabase.auth.getSession();
-  const token = session?.access_token ?? null;
-  let sub = "?";
-  let role = "?";
-  if (token) {
-    try {
-      const p = JSON.parse(Buffer.from(token.split(".")[1], "base64").toString("utf8"));
-      sub = p.sub;
-      role = p.role;
-    } catch {}
-  }
-  const { data: rpc, error: rpcErr } = await supabase.rpc("is_playbook_editor");
-
-  if (!token) {
-    return { status: "erro", mensagem: `DEBUG sem token. user=${user?.email ?? "null"} rpc=${JSON.stringify(rpc)} rpcErr=${rpcErr?.message ?? "-"}` };
-  }
+  const barreira = await exigirEditor();
+  if (barreira) return barreira;
+  if (!SERVICE)
+    return { status: "erro", mensagem: "Upload indisponível: SUPABASE_SERVICE_ROLE_KEY não configurada no servidor." };
 
   const bytes = Buffer.from(await file.arrayBuffer());
   const res = await fetch(
@@ -66,34 +53,38 @@ export async function subirArquivo(formData: FormData): Promise<ResultadoUpload>
     {
       method: "POST",
       headers: {
-        apikey: ANON,
-        Authorization: `Bearer ${token}`,
+        apikey: SERVICE,
+        Authorization: `Bearer ${SERVICE}`,
         "Content-Type": file.type || "application/octet-stream",
         "x-upsert": "true",
       },
       body: bytes,
     }
   );
-  if (res.ok) return { status: "ok", storagePath: path };
-
-  const body = (await res.text()).slice(0, 160);
-  return {
-    status: "erro",
-    mensagem: `DEBUG user=${user?.email ?? "null"} sub=${sub} role=${role} rpc=${JSON.stringify(rpc)} rpcErr=${rpcErr?.message ?? "-"} bucket=${bucket} upStatus=${res.status} body=${body}`,
-  };
+  if (!res.ok) {
+    let msg = `Falha no upload (${res.status}).`;
+    try {
+      const j = await res.json();
+      if (j?.message) msg = j.message;
+    } catch {}
+    return { status: "erro", mensagem: msg };
+  }
+  return { status: "ok", storagePath: path };
 }
 
 export async function removerArquivo(
   bucket: string,
   path: string
 ): Promise<ResultadoUpload> {
-  const { token } = await tokenDoUsuario();
-  if (!token) return { status: "nao_autenticado" };
+  const barreira = await exigirEditor();
+  if (barreira) return barreira;
+  if (!SERVICE)
+    return { status: "erro", mensagem: "SUPABASE_SERVICE_ROLE_KEY não configurada." };
   const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${bucket}`, {
     method: "DELETE",
     headers: {
-      apikey: ANON,
-      Authorization: `Bearer ${token}`,
+      apikey: SERVICE,
+      Authorization: `Bearer ${SERVICE}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ prefixes: [path] }),
@@ -109,16 +100,38 @@ export async function removerArquivo(
   return { status: "ok" };
 }
 
-// URL assinada para bucket privado (leads). Aqui o supabase-js funciona (não é
-// bucket público), então mantemos o caminho simples.
+// URL assinada para bucket privado (leads). Exige apenas estar autenticado
+// (leads são visíveis a qualquer logado). Assina via service_role.
 export async function urlAssinada(
   bucket: string,
   path: string
 ): Promise<ResultadoUpload> {
   const supabase = await createClient();
-  const { data, error } = await supabase.storage
-    .from(bucket)
-    .createSignedUrl(path, 3600);
-  if (error || !data) return { status: "erro", mensagem: "Falha ao gerar URL." };
-  return { status: "ok", url: data.signedUrl };
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { status: "nao_autenticado" };
+
+  if (!SERVICE) {
+    const { data, error } = await supabase.storage
+      .from(bucket)
+      .createSignedUrl(path, 3600);
+    if (error || !data) return { status: "erro", mensagem: "Falha ao gerar URL." };
+    return { status: "ok", url: data.signedUrl };
+  }
+  const res = await fetch(
+    `${SUPABASE_URL}/storage/v1/object/sign/${bucket}/${encodePath(path)}`,
+    {
+      method: "POST",
+      headers: {
+        apikey: SERVICE,
+        Authorization: `Bearer ${SERVICE}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ expiresIn: 3600 }),
+    }
+  );
+  if (!res.ok) return { status: "erro", mensagem: "Falha ao gerar URL." };
+  const j = await res.json();
+  return { status: "ok", url: `${SUPABASE_URL}/storage/v1${j.signedURL}` };
 }
