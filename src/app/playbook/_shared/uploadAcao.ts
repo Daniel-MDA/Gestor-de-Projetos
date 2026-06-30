@@ -39,8 +39,26 @@ export async function subirArquivo(formData: FormData): Promise<ResultadoUpload>
   if (!(file instanceof File) || typeof bucket !== "string" || typeof path !== "string") {
     return { status: "erro", mensagem: "Dados de upload incompletos." };
   }
-  const { token } = await tokenDoUsuario();
-  if (!token) return { status: "nao_autenticado" };
+
+  // ===== DEBUG temporário: coleta fatos e devolve no erro =====
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { session } } = await supabase.auth.getSession();
+  const token = session?.access_token ?? null;
+  let sub = "?";
+  let role = "?";
+  if (token) {
+    try {
+      const p = JSON.parse(Buffer.from(token.split(".")[1], "base64").toString("utf8"));
+      sub = p.sub;
+      role = p.role;
+    } catch {}
+  }
+  const { data: rpc, error: rpcErr } = await supabase.rpc("is_playbook_editor");
+
+  if (!token) {
+    return { status: "erro", mensagem: `DEBUG sem token. user=${user?.email ?? "null"} rpc=${JSON.stringify(rpc)} rpcErr=${rpcErr?.message ?? "-"}` };
+  }
 
   const bytes = Buffer.from(await file.arrayBuffer());
   const res = await fetch(
@@ -56,15 +74,13 @@ export async function subirArquivo(formData: FormData): Promise<ResultadoUpload>
       body: bytes,
     }
   );
-  if (!res.ok) {
-    let msg = `Falha no upload (${res.status}).`;
-    try {
-      const j = await res.json();
-      if (j?.message) msg = j.message;
-    } catch {}
-    return { status: "erro", mensagem: msg };
-  }
-  return { status: "ok", storagePath: path };
+  if (res.ok) return { status: "ok", storagePath: path };
+
+  const body = (await res.text()).slice(0, 160);
+  return {
+    status: "erro",
+    mensagem: `DEBUG user=${user?.email ?? "null"} sub=${sub} role=${role} rpc=${JSON.stringify(rpc)} rpcErr=${rpcErr?.message ?? "-"} bucket=${bucket} upStatus=${res.status} body=${body}`,
+  };
 }
 
 export async function removerArquivo(
