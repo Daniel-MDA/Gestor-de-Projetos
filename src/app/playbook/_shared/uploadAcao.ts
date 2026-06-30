@@ -18,10 +18,10 @@ function serviceKey() {
 }
 
 function semServiceKeyMsg() {
-  return (
-    "Upload indisponível: SUPABASE_SERVICE_ROLE_KEY ausente no runtime " +
-    `(url=${!!process.env.NEXT_PUBLIC_SUPABASE_URL}, sr=${!!process.env.SUPABASE_SERVICE_ROLE_KEY}).`
-  );
+  const chaves = Object.keys(process.env)
+    .filter((k) => /SUPA|SERVICE|ROLE/i.test(k))
+    .join(", ");
+  return `DEBUG SR ausente. url=${!!process.env.NEXT_PUBLIC_SUPABASE_URL} chaves=[${chaves}]`;
 }
 
 function encodePath(path: string) {
