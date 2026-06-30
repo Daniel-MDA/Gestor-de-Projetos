@@ -18,10 +18,7 @@ function serviceKey() {
 }
 
 function semServiceKeyMsg() {
-  const chaves = Object.keys(process.env)
-    .filter((k) => /SUPA|SERVICE|ROLE/i.test(k))
-    .join(", ");
-  return `DEBUG SR ausente. url=${!!process.env.NEXT_PUBLIC_SUPABASE_URL} chaves=[${chaves}]`;
+  return "Upload indisponível: configuração do servidor ausente. Avise o administrador.";
 }
 
 function encodePath(path: string) {

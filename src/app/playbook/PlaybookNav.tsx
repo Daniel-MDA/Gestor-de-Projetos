@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SairButton from "./SairButton";
 
 export default function PlaybookNav({
   estaLogado,
@@ -47,11 +48,18 @@ export default function PlaybookNav({
           <li>
             <a href="#workshops">Workshops</a>
           </li>
-          {podeEditar ? (
-            <li>
-              <span className="pb-badge-editor">✎ Modo editor</span>
-            </li>
-          ) : estaLogado ? null : (
+          {estaLogado ? (
+            <>
+              {podeEditar ? (
+                <li>
+                  <span className="pb-badge-editor">✎ Modo editor</span>
+                </li>
+              ) : null}
+              <li>
+                <SairButton />
+              </li>
+            </>
+          ) : (
             <li>
               <Link href="/login" className="pb-nav-cta">
                 Entrar para editar

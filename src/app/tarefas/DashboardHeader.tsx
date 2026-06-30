@@ -2,7 +2,8 @@
 
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
-import { LogOut } from "lucide-react";
+import Link from "next/link";
+import { LogOut, Home } from "lucide-react";
 import { useState } from "react";
 import { Tarefa, calcularKPIs } from "@/lib/tarefas";
 import ProjectSelector from "./ProjectSelector";
@@ -102,6 +103,14 @@ export default function DashboardHeader({
         </div>
 
         <div className="flex items-center gap-4">
+          <Link
+            href="/"
+            className="flex items-center gap-2 px-3 py-2 text-sm text-[#4b4942] hover:bg-[#fbfaf6] border border-[#d0ccbf] rounded-lg transition-colors"
+            title="Ir para o início"
+          >
+            <Home className="w-4 h-4" />
+            Início
+          </Link>
           <div className="text-right">
             <div className="text-[10px] tracking-[0.12em] uppercase text-[#7c7a72] font-mono">
               Logado como

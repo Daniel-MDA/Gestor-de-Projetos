@@ -39,8 +39,8 @@ export default function LoginForm() {
       return;
     }
 
-    // Sucesso: redireciona pro dashboard
-    router.push("/tarefas");
+    // Sucesso: vai para a rota principal (landing com as ferramentas)
+    router.push("/");
     router.refresh(); // força re-renderização com a nova sessão
   }
 

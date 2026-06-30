@@ -55,7 +55,7 @@ export async function updateSession(request: NextRequest) {
   // (exceto rotas /auth, como a tela de redefinir senha no recovery).
   if (user && path.startsWith("/login") && !path.startsWith("/auth")) {
     const url = request.nextUrl.clone();
-    url.pathname = "/tarefas";
+    url.pathname = "/";
     return NextResponse.redirect(url);
   }
 
