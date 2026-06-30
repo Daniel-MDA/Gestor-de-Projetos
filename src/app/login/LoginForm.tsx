@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Lock, Mail, Loader2 } from "lucide-react";
 
@@ -12,8 +11,6 @@ export default function LoginForm({ next }: { next?: string }) {
   const [keepConnected, setKeepConnected] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -43,8 +40,10 @@ export default function LoginForm({ next }: { next?: string }) {
     // ou para a rota principal. Valida para evitar open redirect.
     const destino =
       next && next.startsWith("/") && !next.startsWith("//") ? next : "/";
-    router.push(destino);
-    router.refresh(); // força re-renderização com a nova sessão
+    // Navegação "dura": força o middleware a reavaliar com a sessão nova e
+    // respeitar o destino. (router.push + refresh corria com o middleware
+    // e acabava caindo na home com ?next na URL.)
+    window.location.assign(destino);
   }
 
   return (
