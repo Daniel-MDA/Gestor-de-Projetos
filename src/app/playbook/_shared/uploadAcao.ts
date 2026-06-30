@@ -10,7 +10,19 @@ export type ResultadoUpload = {
 };
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const SERVICE = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+// Lê a service_role em RUNTIME (não no topo do módulo, que pode ser congelado
+// no build antes da env var existir).
+function serviceKey() {
+  return process.env.SUPABASE_SERVICE_ROLE_KEY;
+}
+
+function semServiceKeyMsg() {
+  return (
+    "Upload indisponível: SUPABASE_SERVICE_ROLE_KEY ausente no runtime " +
+    `(url=${!!process.env.NEXT_PUBLIC_SUPABASE_URL}, sr=${!!process.env.SUPABASE_SERVICE_ROLE_KEY}).`
+  );
+}
 
 function encodePath(path: string) {
   return path.split("/").map(encodeURIComponent).join("/");
@@ -44,8 +56,8 @@ export async function subirArquivo(formData: FormData): Promise<ResultadoUpload>
   }
   const barreira = await exigirEditor();
   if (barreira) return barreira;
-  if (!SERVICE)
-    return { status: "erro", mensagem: "Upload indisponível: SUPABASE_SERVICE_ROLE_KEY não configurada no servidor." };
+  const SERVICE = serviceKey();
+  if (!SERVICE) return { status: "erro", mensagem: semServiceKeyMsg() };
 
   const bytes = Buffer.from(await file.arrayBuffer());
   const res = await fetch(
@@ -78,8 +90,8 @@ export async function removerArquivo(
 ): Promise<ResultadoUpload> {
   const barreira = await exigirEditor();
   if (barreira) return barreira;
-  if (!SERVICE)
-    return { status: "erro", mensagem: "SUPABASE_SERVICE_ROLE_KEY não configurada." };
+  const SERVICE = serviceKey();
+  if (!SERVICE) return { status: "erro", mensagem: semServiceKeyMsg() };
   const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${bucket}`, {
     method: "DELETE",
     headers: {
@@ -112,6 +124,7 @@ export async function urlAssinada(
   } = await supabase.auth.getUser();
   if (!user) return { status: "nao_autenticado" };
 
+  const SERVICE = serviceKey();
   if (!SERVICE) {
     const { data, error } = await supabase.storage
       .from(bucket)
